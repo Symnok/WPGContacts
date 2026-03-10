@@ -96,40 +96,57 @@ namespace SyncComponent
             // 5. Очищаем старые контакты в этом списке, чтобы не было дубликатов при ручном запуске
             System.Diagnostics.Debug.WriteLine("Очистка старых контактов...");
             var contactReader = myContactList.GetContactReader();
+            var existingContacts = new System.Collections.Generic.List<Contact>();
             var batch = await contactReader.ReadBatchAsync();
             while (batch.Contacts.Count > 0)
             {
                 foreach (var oldContact in batch.Contacts)
                 {
-                    await myContactList.DeleteContactAsync(oldContact);
+                    existingContacts.AddRange(batch.Contacts);
                 }
                 batch = await contactReader.ReadBatchAsync();
             }
 
             // 6. Сохраняем новые контакты и выводим их в консоль отладки
             System.Diagnostics.Debug.WriteLine($"Найдено контактов для добавления: {googleContacts.Count}");
-
+            int addedCount = 0;
             foreach (var gc in googleContacts)
             {
-                var contact = new Contact
-                {
-                    FirstName = gc.FirstName,
-                    LastName = gc.LastName,
-                    Notes = "Синхронизировано из Google"
-                };
+                
 
-                if (!string.IsNullOrEmpty(gc.Phone))
+                string newFullName = (gc.FirstName + " " + gc.LastName).Trim();
+                string newPhone = gc.Phone ?? "";
+
+                bool exists = existingContacts.Any(c =>
+                    (c.FirstName + " " + c.LastName).Trim() == newFullName &&
+                    (c.Phones.FirstOrDefault()?.Number ?? "") == newPhone
+                    );
+
+                if (!exists)
                 {
-                    contact.Phones.Add(new ContactPhone { Number = gc.Phone, Kind = ContactPhoneKind.Mobile });
+
+                    var contact = new Contact
+                    {
+                        FirstName = gc.FirstName,
+                        LastName = gc.LastName,
+                        Notes = "Синхронизировано из Google"
+                    };
+
+                    if (!string.IsNullOrEmpty(gc.Phone))
+                    {
+                        contact.Phones.Add(new ContactPhone { Number = gc.Phone, Kind = ContactPhoneKind.Mobile });
+                    }
+
+                    await myContactList.SaveContactAsync(contact);
+                    System.Diagnostics.Debug.WriteLine($"[+] Добавлен контакт: {gc.FirstName} {gc.LastName} | Тел: {gc.Phone}");
+                    addedCount++;
                 }
-
-                await myContactList.SaveContactAsync(contact);
-
-                // ВЫВОД В КОНСОЛЬ VISUAL STUDIO (Output Window)
-                System.Diagnostics.Debug.WriteLine($"[+] Добавлен контакт: {gc.FirstName} {gc.LastName} | Тел: {gc.Phone}");
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"[=] Пропуск (уже есть): {newFullName}");
+                }
             }
-
-            System.Diagnostics.Debug.WriteLine("=== СИНХРОНИЗАЦИЯ УСПЕШНО ЗАВЕРШЕНА ===");
+            System.Diagnostics.Debug.WriteLine($"=== ЗАВЕРШЕНО. Добавлено новых: {addedCount} ===");
         }
 
         private async Task<string> GetAccessTokenAsync(string refreshToken, string clientId, string clientSecret)

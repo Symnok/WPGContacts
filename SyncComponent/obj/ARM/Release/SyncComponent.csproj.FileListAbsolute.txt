@@ -16,3 +16,4 @@ c:\users\user\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\ob
 c:\users\user\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\obj\ARM\Release\qualifiers.txt
 c:\users\user\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\obj\ARM\Release\qualifiers.txt.intermediate
 c:\users\user\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\obj\ARM\Release\MultipleQualifiersPerDimensionFound.txt
+C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\obj\ARM\Release\SyncComponent.csprojResolveAssemblyReference.cache

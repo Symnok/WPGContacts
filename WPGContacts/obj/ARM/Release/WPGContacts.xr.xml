@@ -42,6 +42,11 @@
       <RootProperty Name="Height" />
       <RootProperty Name="Margin" />
     </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="Header" />
+      <RootProperty Name="PlaceholderText" />
+      <RootProperty Name="Margin" />
+    </RootType>
     <RootType FullName="WPGContacts.MainPage" />
   </Roots.RootTypes>
 </Roots>

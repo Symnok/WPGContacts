@@ -1,2 +1,2 @@
-c:\users\user\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\SyncComponent.csproj;arm
-c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\WPGContacts.csproj;arm
+C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\SyncComponent\SyncComponent.csproj;arm
+C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\WPGContacts.csproj;arm

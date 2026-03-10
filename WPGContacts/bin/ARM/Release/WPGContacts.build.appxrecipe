@@ -10,62 +10,62 @@
     <PackageArchitecture>arm</PackageArchitecture>
     <PackageIdentityName>c0433f23-2b0f-4c71-95d9-262b68630ef8</PackageIdentityName>
     <PackageIdentityPublisher>CN=User</PackageIdentityPublisher>
-    <IntermediateOutputPath>c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\obj\ARM\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\obj\ARM\Release\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\ClrCompression.dll">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\ClrCompression.dll">
       <PackagePath>ClrCompression.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\resources.pri">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\SyncComponent.winmd">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\SyncComponent.winmd">
       <PackagePath>SyncComponent.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.dll">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.dll">
       <PackagePath>WPGContacts.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.exe">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.exe">
       <PackagePath>WPGContacts.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.pdb">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\ARM\Release\ilc\WPGContacts.pdb">
       <PackagePath>WPGContacts.pdb</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
