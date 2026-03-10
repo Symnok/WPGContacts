@@ -8,6 +8,7 @@
 
     <StackPanel Padding="20" VerticalAlignment="Center">
         <TextBlock Text="Google Контакты" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <TextBlock Text="by Computershik" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center"/>
 
         <!-- Панель входа (показывается, если аккаунта нет) -->
         <!-- Панель входа (показывается, если аккаунта нет) -->

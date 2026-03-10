@@ -33,6 +33,12 @@ namespace SyncComponent
         }
     }
 
+    internal class SyncState
+    {
+        public System.Collections.Generic.Dictionary<string, string> Etags = new System.Collections.Generic.Dictionary<string, string>();
+        public System.Collections.Generic.Dictionary<string, string> Hashes = new System.Collections.Generic.Dictionary<string, string>();
+    }
+
     public sealed class SyncManager
     {
         public IAsyncAction SyncNowAsync()
@@ -106,22 +112,97 @@ namespace SyncComponent
 
                     if (response.IsSuccessStatusCode)
                     {
-                        System.Diagnostics.Debug.WriteLine("Google: Контакт успешно обновлен.");
+                        System.Diagnostics.Debug.WriteLine($"[OK] Google API обновил контакт {localContact.FirstName}");
                         return true;
                     }
                     else
                     {
                         string error = await response.Content.ReadAsStringAsync();
-                        System.Diagnostics.Debug.WriteLine($"Google: Ошибка PATCH: {error}");
+                        System.Diagnostics.Debug.WriteLine($"[ERROR] Google API отклонён PATCH: {error}");
                         return false;
                     }
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Google: Исключение: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"[CRASH] UpdateGoogleContactAsync: {ex.Message}");
                 return false;
             }
+        }
+        private async Task SaveSyncStateAsync(Dictionary<string, string> etags, Dictionary<string, string> hashes)
+        {
+            JsonObject root = new JsonObject();
+            JsonObject etagsJson = new JsonObject();
+            JsonObject hashesJson = new JsonObject();
+
+            foreach (var kvp in etags) etagsJson.SetNamedValue(kvp.Key, JsonValue.CreateStringValue(kvp.Value));
+            foreach (var kvp in hashes) hashesJson.SetNamedValue(kvp.Key, JsonValue.CreateStringValue(kvp.Value));
+
+            root.SetNamedValue("etags", etagsJson);
+            root.SetNamedValue("hashes", hashesJson);
+
+            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var file = await folder.CreateFileAsync("sync_state.json", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            await Windows.Storage.FileIO.WriteTextAsync(file, root.Stringify());
+        }
+        private async Task<SyncState> LoadSyncStateAsync()
+        {
+            var state = new SyncState();
+            var folder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            // TryGetItemAsync возвращает null вместо ошибки, если файла нет
+            var item = await folder.TryGetItemAsync("sync_state.json");
+
+            if (item != null && item is Windows.Storage.IStorageFile)
+            {
+                try
+                {
+                    var file = (Windows.Storage.StorageFile)item;
+                    string jsonString = await Windows.Storage.FileIO.ReadTextAsync(file);
+
+                    if (!string.IsNullOrEmpty(jsonString))
+                    {
+                        JsonObject root = JsonObject.Parse(jsonString);
+
+                        if (root.ContainsKey("etags"))
+                        {
+                            var etagsObj = root.GetNamedObject("etags");
+                            foreach (var key in etagsObj.Keys)
+                                state.Etags[key] = etagsObj.GetNamedString(key);
+                        }
+
+                        if (root.ContainsKey("hashes"))
+                        {
+                            var hashesObj = root.GetNamedObject("hashes");
+                            foreach (var key in hashesObj.Keys)
+                                state.Hashes[key] = hashesObj.GetNamedString(key);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Ошибка парсинга sync_state.json: " + ex.Message);
+                }
+            }
+
+            return state;
+        }
+
+
+
+        private string CalculateHash(string f, string l, List<string> phones)
+        {
+            // Обязательно Trim() и к нижнему регистру для стабильности сравнения
+            string first = (f ?? "").Trim().ToLower();
+            string last = (l ?? "").Trim().ToLower();
+            var pList = phones.Select(p => CleanPhone(p)).OrderBy(p => p).ToList();
+
+            string raw = string.Format("{0}|{1}|{2}", first, last, string.Join(",", pList));
+
+            var buffer = Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary(raw, Windows.Security.Cryptography.BinaryStringEncoding.Utf8);
+            var hashAlg = Windows.Security.Cryptography.Core.HashAlgorithmProvider.OpenAlgorithm(Windows.Security.Cryptography.Core.HashAlgorithmNames.Sha1);
+            var hashed = hashAlg.HashData(buffer);
+            return Windows.Security.Cryptography.CryptographicBuffer.EncodeToHexString(hashed);
         }
 
         private async Task ExecuteSyncAsync()
@@ -142,6 +223,10 @@ namespace SyncComponent
 
             string accessToken = await GetAccessTokenAsync(refreshToken, clientId, clientSecret);
             if (string.IsNullOrEmpty(accessToken)) return;
+
+            var state = await LoadSyncStateAsync();
+            var newEtags = new Dictionary<string, string>();
+            var newHashes = new Dictionary<string, string>();
 
             var googleContacts = await FetchGoogleContactsAsync(accessToken);
             if (googleContacts == null) return;
@@ -175,21 +260,30 @@ namespace SyncComponent
             int cloudDeletedCount = 0;
             int linkedCount = 0;
 
-            var etagMap = await LoadEtagsAsync();
+           // var etagMap = await LoadEtagsAsync();
 
             // === ФАЗА 1: УДАЛЕНИЕ ИЗ GOOGLE ===
             foreach (var gc in googleContacts.ToList())
             {
-                etagMap[gc.Id] = gc.ETag;
                 var localMatch = existingContacts.FirstOrDefault(c => c.RemoteId == gc.Id);
-                if (localMatch == null && syncedIds.Contains(gc.Id))
+
+                if (localMatch == null) // Контакта нет на телефоне
                 {
-                    System.Diagnostics.Debug.WriteLine($"[--] Удаление из Google (удален локально): {gc.FirstName} {gc.LastName}");
-                    bool deleted = await DeleteGoogleContactAsync(accessToken, gc.Id);
-                    if (deleted)
+                    // Проверяем "память": был ли этот ID у нас в прошлой синхронизации?
+                    if (state.Etags.ContainsKey(gc.Id))
                     {
-                        cloudDeletedCount++;
-                        googleContacts.Remove(gc);
+                        // Был! Значит, пользователь удалил его из телефонной книги.
+                        System.Diagnostics.Debug.WriteLine($"[--] Удаление из Google (удален локально): {gc.FirstName}");
+                        bool deleted = await DeleteGoogleContactAsync(accessToken, gc.Id);
+
+                        if (deleted)
+                        {
+                            googleContacts.Remove(gc);
+                            cloudDeletedCount++;
+                            // Убираем его из памяти ETag и Хешей, чтобы не пытаться обработать снова
+                            state.Etags.Remove(gc.Id);
+                            state.Hashes.Remove(gc.Id);
+                        }
                     }
                 }
             }
@@ -204,107 +298,103 @@ namespace SyncComponent
                 localDeletedCount++;
             }
 
-            // === ФАЗА 3: UPLOAD И UPDATE В GOOGLE (Отправляем локальные изменения) ===
-            foreach (var localContact in existingContacts)
-            {
-                if (!string.IsNullOrEmpty(localContact.RemoteId))
-                {
-                    // Обновляем существующий контакт в Google
-                    var googleMatch = googleContacts.FirstOrDefault(gc => gc.Id == localContact.RemoteId);
-                    if (googleMatch != null && AreContactsDifferent(localContact, googleMatch))
-                    {
-                        System.Diagnostics.Debug.WriteLine($"[^] Обновление контакта в Google: {localContact.FirstName} {localContact.LastName}");
-                        string currentEtag = etagMap.ContainsKey(localContact.RemoteId) ? etagMap[localContact.RemoteId] : "";
-
-                        bool success = await UpdateGoogleContactAsync(accessToken, localContact, currentEtag);
-                        
-                        uploadedCount++;
-
-                        // ВАЖНО: Обновляем данные в памяти, чтобы Фаза 4 не скачала старые данные обратно!
-                        googleMatch.FirstName = localContact.FirstName;
-                        googleMatch.LastName = localContact.LastName;
-                        googleMatch.Phones.Clear();
-                        foreach (var p in localContact.Phones) googleMatch.Phones.Add(p.Number);
-                    }
-                }
-                else
-                {
-                    // Ищем дубликат в Google по имени (чтобы связать, а не создавать копию)
-                    string localFullName = (localContact.FirstName + " " + localContact.LastName).Trim();
-                    var possibleDuplicate = googleContacts.FirstOrDefault(gc =>
-                        (gc.FirstName + " " + gc.LastName).Trim() == localFullName);
-
-                    if (possibleDuplicate != null)
-                    {
-                        // Привязываем локальный контакт к Google ID
-                        localContact.RemoteId = possibleDuplicate.Id;
-                        await myContactList.SaveContactAsync(localContact);
-                        linkedCount++;
-                    }
-                    else
-                    {
-                        // Создаем абсолютно новый контакт в Google
-                        System.Diagnostics.Debug.WriteLine($"[^] Выгрузка в Google: {localContact.FirstName} {localContact.LastName}");
-                        string newGoogleId = await CreateGoogleContactAsync(accessToken, localContact);
-
-                        if (!string.IsNullOrEmpty(newGoogleId))
-                        {
-                            localContact.RemoteId = newGoogleId;
-                            await myContactList.SaveContactAsync(localContact);
-                            uploadedCount++;
-
-                            // Добавляем в локальный список Google, чтобы не скачать на следующем шаге
-                            googleContacts.Add(new GoogleContact { Id = newGoogleId, FirstName = localContact.FirstName, LastName = localContact.LastName });
-                        }
-                    }
-                }
-            }
-
-            // === ФАЗА 4: DOWNLOAD И UPDATE ИЗ GOOGLE (Скачиваем новые изменения облака) ===
+            // 4. ГЛАВНЫЙ ЦИКЛ СИНХРОНИЗАЦИИ И РАЗРЕШЕНИЯ КОНФЛИКТОВ
             foreach (var gc in googleContacts)
             {
-                var match = existingContacts.FirstOrDefault(c => c.RemoteId == gc.Id);
-
-                if (match != null)
+                var lc = existingContacts.FirstOrDefault(c => c.RemoteId == gc.Id);
+                string googleHash = CalculateHash(gc.FirstName, gc.LastName, gc.Phones.Select(CleanPhone).ToList());
+                if (lc != null) // Контакт есть и там, и там. Проверяем, КТО изменился.
                 {
-                    // Если данные в Google отличаются от локальных (и мы их не обновляли в Фазе 3)
-                    if (AreContactsDifferent(match, gc))
+                    string localHash = CalculateHash(lc.FirstName, lc.LastName, lc.Phones.Select(p => CleanPhone(p.Number)).ToList());
+
+                    string lastHash = state.Hashes.ContainsKey(gc.Id) ? state.Hashes[gc.Id] : "";
+                    string lastEtag = state.Etags.ContainsKey(gc.Id) ? state.Etags[gc.Id] : "";
+
+                    // ПРОВЕРЯЕМ ИЗМЕНЕНИЯ
+                    // 1. Изменилось ли что-то в облаке? (сравниваем ETag или хеш данных)
+                    bool cloudChanged = !string.IsNullOrEmpty(lastEtag) && gc.ETag != lastEtag;
+
+                    // Проверяем: поменялся ли Телефон?
+                    // Если lastHash пустой (первый запуск), считаем, что телефон НЕ менялся (просто связываем)
+                    bool localChanged = !string.IsNullOrEmpty(lastHash) && localHash != lastHash;
+
+                    if (cloudChanged)
                     {
-                        System.Diagnostics.Debug.WriteLine($"[!] Обновление локального контакта: {gc.FirstName} {gc.LastName}");
+                        System.Diagnostics.Debug.WriteLine($"[!] Смена в ОБЛАКЕ для {gc.FirstName}");
+                        // Обновляем телефон (как у вас было)
+                        lc.FirstName = gc.FirstName;
+                        lc.LastName = gc.LastName;
+                        lc.Phones.Clear();
+                        foreach (var p in gc.Phones) lc.Phones.Add(new ContactPhone { Number = p });
+                        await myContactList.SaveContactAsync(lc);
 
-                        match.FirstName = gc.FirstName;
-                        match.LastName = gc.LastName;
-                        match.Phones.Clear();
-                        foreach (var phone in gc.Phones)
-                            match.Phones.Add(new ContactPhone { Number = phone, Kind = ContactPhoneKind.Mobile });
-
-                        await myContactList.SaveContactAsync(match);
+                        // Запоминаем состояние Google как эталон
+                        newHashes[gc.Id] = googleHash;
+                        newEtags[gc.Id] = gc.ETag;
                     }
+                    else if (localChanged)
+                    {
+                        // ПРИОРИТЕТ ТЕЛЕФОНА: Обновляем Google
+                        System.Diagnostics.Debug.WriteLine($"[^] Локальное изменение в телефоне: {lc.FirstName}. Обновляем Google.");
+                        bool ok = await UpdateGoogleContactAsync(accessToken, lc, gc.ETag);
+
+                        // В память записываем текущий хеш телефона
+                        if (ok)
+                        {
+                            newHashes[gc.Id] = localHash;
+                            // ETag обновится при следующем скачивании, пока оставим старый
+                            newEtags[gc.Id] = gc.ETag;
+                        }
+                        else
+                        {
+                            // Если не удалось обновить Google, оставляем СТАРЫЙ хеш в памяти,
+                            // чтобы при следующем запуске программа снова увидела разницу и попробовала еще раз
+                            newHashes[gc.Id] = lastHash;
+                            newEtags[gc.Id] = lastEtag;
+                        }
+                    }
+                    else {
+                        newHashes[gc.Id] = googleHash;
+                        newEtags[gc.Id] = gc.ETag;
+                    }
+                    
                 }
                 else
+                //if (!syncedIds.Contains(gc.Id))
                 {
-                    // Создаем новый контакт из Google на телефоне
-                    var contact = new Contact
-                    {
-                        RemoteId = gc.Id,
-                        FirstName = gc.FirstName,
-                        LastName = gc.LastName,
-                        Notes = "Синхронизировано из Google"
-                    };
-
-                    foreach (var phoneNum in gc.Phones)
-                    {
-                        if (!string.IsNullOrEmpty(phoneNum))
-                            contact.Phones.Add(new ContactPhone { Number = phoneNum, Kind = ContactPhoneKind.Mobile });
-                    }
-
+                    // НОВЫЙ КОНТАКТ ИЗ ОБЛАКА: Скачиваем
+                    var contact = new Contact { RemoteId = gc.Id, FirstName = gc.FirstName, LastName = gc.LastName };
+                    foreach (var p in gc.Phones) contact.Phones.Add(new ContactPhone { Number = p });
                     await myContactList.SaveContactAsync(contact);
-                    existingContacts.Add(contact);
-                    downloadedCount++;
-                    System.Diagnostics.Debug.WriteLine($"[+] Скачан контакт: {gc.FirstName} {gc.LastName}");
+
+                    newEtags[gc.Id] = gc.ETag;
+                    newHashes[gc.Id] = googleHash;
+                    System.Diagnostics.Debug.WriteLine($"[+] Новый контакт из Google: {gc.FirstName}");
                 }
             }
-            await SaveEtagsAsync(etagMap);
+
+            // 5. ВЫГРУЗКА НОВЫХ ЛОКАЛЬНЫХ (у которых еще нет RemoteId)
+            foreach (var lc in existingContacts.Where(c => string.IsNullOrEmpty(c.RemoteId)))
+            {
+                System.Diagnostics.Debug.WriteLine($"[^] Upload New: '{lc.FirstName}' -> Google");
+                string newId = await CreateGoogleContactAsync(accessToken, lc);
+                if (!string.IsNullOrEmpty(newId))
+                {
+                    lc.RemoteId = newId;
+                    await myContactList.SaveContactAsync(lc);
+
+                    // Сохраняем хеш для следующей проверки
+                    string hash = CalculateHash(lc.FirstName, lc.LastName, lc.Phones.Select(p => CleanPhone(p.Number)).ToList());
+                    newHashes[newId] = hash;
+                    // ETag подтянется при следующей синхронизации
+                }
+            }
+
+            // 6. ФИНАЛ: СОХРАНЯЕМ ТЕКУЩЕЕ СОСТОЯНИЕ ОБЛАКА КАК "ПАМЯТЬ"
+            //await SaveSyncedIdsAsync(existingContacts.Select(c => c.RemoteId).Where(id => !string.IsNullOrEmpty(id)));
+            await SaveSyncStateAsync(newEtags, newHashes);
+            // Мы сохраняем именно те ETag-и, которые прислал Google в ЭТОЙ итерации
+            //await SaveEtagsAsync(currentCloudEtags);
             // === ФИНАЛ: СОХРАНЯЕМ "ПАМЯТЬ" СИНХРОНИЗАЦИИ ===
             var newSyncedIds = existingContacts.Select(c => c.RemoteId).Where(id => !string.IsNullOrEmpty(id));
             await SaveSyncedIdsAsync(newSyncedIds);
@@ -343,7 +433,7 @@ namespace SyncComponent
     return ""; // Пока верните пустоту, если не сохраняли, но Google может продолжать требовать
 }
 
-        private async Task<System.Collections.Generic.Dictionary<string, string>> LoadEtagsAsync()
+       /* private async Task<System.Collections.Generic.Dictionary<string, string>> LoadEtagsAsync()
         {
             var etags = new System.Collections.Generic.Dictionary<string, string>();
             try
@@ -358,9 +448,9 @@ namespace SyncComponent
                     etags[key] = root.GetNamedString(key);
                 }
             }
-            catch { /* Файла еще нет */ }
+            catch { * Файла еще нет  }
             return etags;
-        }
+        }*/
 
         private async Task SaveEtagsAsync(System.Collections.Generic.Dictionary<string, string> etags)
         {

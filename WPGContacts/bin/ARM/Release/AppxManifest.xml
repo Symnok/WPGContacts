@@ -43,8 +43,8 @@
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>
         <Path>CLRHost.dll</Path>
-        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
         <ActivatableClass ActivatableClassId="SyncComponent.ContactSyncTask" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
   </Extensions>
