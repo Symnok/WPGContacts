@@ -40,6 +40,55 @@ namespace SyncComponent
             return ExecuteSyncAsync().AsAsyncAction();
         }
 
+        // Сравнение полей контакта
+        private bool AreContactsDifferent(Contact local, GoogleContact remote)
+        {
+            if (local.FirstName != remote.FirstName || local.LastName != remote.LastName) return true;
+
+            var localPhones = local.Phones.Select(p => CleanPhone(p.Number)).OrderBy(p => p).ToList();
+            var remotePhones = remote.Phones.Select(CleanPhone).OrderBy(p => p).ToList();
+
+            if (localPhones.Count != remotePhones.Count) return true;
+            for (int i = 0; i < localPhones.Count; i++)
+                if (localPhones[i] != remotePhones[i]) return true;
+
+            return false;
+        }
+
+        // Обновление контакта в Google (используем PATCH запрос)
+        private async Task UpdateGoogleContactAsync(string accessToken, Contact localContact)
+        {
+            try
+            {
+                JsonObject root = new JsonObject();
+                // Google требует при патче указывать, какие поля меняем
+                root.SetNamedValue("updateMask", JsonValue.CreateStringValue("names,phoneNumbers"));
+
+                JsonObject names = new JsonObject();
+                names.SetNamedValue("givenName", JsonValue.CreateStringValue(localContact.FirstName ?? ""));
+                names.SetNamedValue("familyName", JsonValue.CreateStringValue(localContact.LastName ?? ""));
+                root.SetNamedValue("names", new JsonArray { names });
+
+                JsonArray phones = new JsonArray();
+                foreach (var p in localContact.Phones)
+                    phones.Add(new JsonObject { { "value", JsonValue.CreateStringValue(p.Number) } });
+                root.SetNamedValue("phoneNumbers", phones);
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                    // Patch-запрос к Google API
+                    var method = new HttpMethod("PATCH");
+                    var request = new HttpRequestMessage(method, $"https://people.googleapis.com/v1/{localContact.RemoteId}:updateContact?updateMask=names,phoneNumbers")
+                    {
+                        Content = new StringContent(root.Stringify(), System.Text.Encoding.UTF8, "application/json")
+                    };
+                    await client.SendAsync(request);
+                }
+            }
+            catch (Exception ex) { System.Diagnostics.Debug.WriteLine($"Ошибка Patch: {ex.Message}"); }
+        }
+
         private async Task ExecuteSyncAsync()
         {
             System.Diagnostics.Debug.WriteLine("=== НАЧАЛО ДВУСТОРОННЕЙ СИНХРОНИЗАЦИИ ===");
@@ -74,11 +123,9 @@ namespace SyncComponent
                 await myContactList.SaveAsync();
             }
 
-            // Загружаем память прошлых синхронизаций (список ID, которые уже были скачаны ранее)
             var syncedIds = await LoadSyncedIdsAsync();
 
-            // Читаем все локальные контакты
-            var existingContacts = new List<Contact>();
+            var existingContacts = new System.Collections.Generic.List<Contact>();
             var contactReader = myContactList.GetContactReader();
             var batch = await contactReader.ReadBatchAsync();
             while (batch.Contacts.Count > 0)
@@ -93,75 +140,109 @@ namespace SyncComponent
             int cloudDeletedCount = 0;
             int linkedCount = 0;
 
-            // === ФАЗА 1: УДАЛЕНИЕ ИЗ GOOGLE (Локально удаленные контакты) ===
-            foreach (var gc in googleContacts.ToList()) // Используем ToList, чтобы можно было удалять из оригинала
+            // === ФАЗА 1: УДАЛЕНИЕ ИЗ GOOGLE ===
+            foreach (var gc in googleContacts.ToList())
             {
                 var localMatch = existingContacts.FirstOrDefault(c => c.RemoteId == gc.Id);
-
-                if (localMatch == null) // Контакта нет на телефоне
+                if (localMatch == null && syncedIds.Contains(gc.Id))
                 {
-                    if (syncedIds.Contains(gc.Id))
+                    System.Diagnostics.Debug.WriteLine($"[--] Удаление из Google (удален локально): {gc.FirstName} {gc.LastName}");
+                    bool deleted = await DeleteGoogleContactAsync(accessToken, gc.Id);
+                    if (deleted)
                     {
-                        // Раньше он был синхронизирован! Значит пользователь удалил его с телефона.
-                        System.Diagnostics.Debug.WriteLine($"[--] Удаление из Google (удален локально): {gc.FirstName} {gc.LastName}");
-                        bool deleted = await DeleteGoogleContactAsync(accessToken, gc.Id);
-
-                        if (deleted)
-                        {
-                            cloudDeletedCount++;
-                            googleContacts.Remove(gc); // Убираем из списка, чтобы не скачать обратно в Фазе 3
-                        }
+                        cloudDeletedCount++;
+                        googleContacts.Remove(gc);
                     }
                 }
             }
 
-            // === ФАЗА 2: УДАЛЕНИЕ ИЗ ТЕЛЕФОНА (Удаленные в Google) ===
-            // Ищем те, у которых есть RemoteId, но их больше нет в свежем списке от Google
+            // === ФАЗА 2: УДАЛЕНИЕ ИЗ ТЕЛЕФОНА ===
             var toDeleteLocally = existingContacts.Where(c => !string.IsNullOrEmpty(c.RemoteId) && !googleContacts.Any(gc => gc.Id == c.RemoteId)).ToList();
             foreach (var lc in toDeleteLocally)
             {
                 System.Diagnostics.Debug.WriteLine($"[-] Удаление локально (пропал из Google): {lc.FirstName} {lc.LastName}");
                 await myContactList.DeleteContactAsync(lc);
-                existingContacts.Remove(lc); // Убираем из памяти
+                existingContacts.Remove(lc);
                 localDeletedCount++;
             }
 
-            // === ФАЗА 3: СКАЧИВАНИЕ И СВЯЗЫВАНИЕ ===
+            // === ФАЗА 3: UPLOAD И UPDATE В GOOGLE (Отправляем локальные изменения) ===
+            foreach (var localContact in existingContacts)
+            {
+                if (!string.IsNullOrEmpty(localContact.RemoteId))
+                {
+                    // Обновляем существующий контакт в Google
+                    var googleMatch = googleContacts.FirstOrDefault(gc => gc.Id == localContact.RemoteId);
+                    if (googleMatch != null && AreContactsDifferent(localContact, googleMatch))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"[^] Обновление контакта в Google: {localContact.FirstName} {localContact.LastName}");
+                        await UpdateGoogleContactAsync(accessToken, localContact);
+                        uploadedCount++;
+
+                        // ВАЖНО: Обновляем данные в памяти, чтобы Фаза 4 не скачала старые данные обратно!
+                        googleMatch.FirstName = localContact.FirstName;
+                        googleMatch.LastName = localContact.LastName;
+                        googleMatch.Phones.Clear();
+                        foreach (var p in localContact.Phones) googleMatch.Phones.Add(p.Number);
+                    }
+                }
+                else
+                {
+                    // Ищем дубликат в Google по имени (чтобы связать, а не создавать копию)
+                    string localFullName = (localContact.FirstName + " " + localContact.LastName).Trim();
+                    var possibleDuplicate = googleContacts.FirstOrDefault(gc =>
+                        (gc.FirstName + " " + gc.LastName).Trim() == localFullName);
+
+                    if (possibleDuplicate != null)
+                    {
+                        // Привязываем локальный контакт к Google ID
+                        localContact.RemoteId = possibleDuplicate.Id;
+                        await myContactList.SaveContactAsync(localContact);
+                        linkedCount++;
+                    }
+                    else
+                    {
+                        // Создаем абсолютно новый контакт в Google
+                        System.Diagnostics.Debug.WriteLine($"[^] Выгрузка в Google: {localContact.FirstName} {localContact.LastName}");
+                        string newGoogleId = await CreateGoogleContactAsync(accessToken, localContact);
+
+                        if (!string.IsNullOrEmpty(newGoogleId))
+                        {
+                            localContact.RemoteId = newGoogleId;
+                            await myContactList.SaveContactAsync(localContact);
+                            uploadedCount++;
+
+                            // Добавляем в локальный список Google, чтобы не скачать на следующем шаге
+                            googleContacts.Add(new GoogleContact { Id = newGoogleId, FirstName = localContact.FirstName, LastName = localContact.LastName });
+                        }
+                    }
+                }
+            }
+
+            // === ФАЗА 4: DOWNLOAD И UPDATE ИЗ GOOGLE (Скачиваем новые изменения облака) ===
             foreach (var gc in googleContacts)
             {
                 var match = existingContacts.FirstOrDefault(c => c.RemoteId == gc.Id);
 
-                // Если по ID не нашли, ищем по Имени + Совпадению телефонов
-                if (match == null)
+                if (match != null)
                 {
-                    string gName = (gc.FirstName + " " + gc.LastName).Trim();
-                    var gPhones = gc.Phones.Select(CleanPhone).Where(p => p.Length > 0).ToList();
-
-                    match = existingContacts.FirstOrDefault(c =>
+                    // Если данные в Google отличаются от локальных (и мы их не обновляли в Фазе 3)
+                    if (AreContactsDifferent(match, gc))
                     {
-                        if (!string.IsNullOrEmpty(c.RemoteId)) return false;
+                        System.Diagnostics.Debug.WriteLine($"[!] Обновление локального контакта: {gc.FirstName} {gc.LastName}");
 
-                        string lName = (c.FirstName + " " + c.LastName).Trim();
-                        if (lName != gName) return false;
+                        match.FirstName = gc.FirstName;
+                        match.LastName = gc.LastName;
+                        match.Phones.Clear();
+                        foreach (var phone in gc.Phones)
+                            match.Phones.Add(new ContactPhone { Number = phone, Kind = ContactPhoneKind.Mobile });
 
-                        var lPhones = c.Phones.Select(p => CleanPhone(p.Number)).Where(p => p.Length > 0).ToList();
-
-                        if (lPhones.Count == 0 && gPhones.Count == 0) return true;
-                        return lPhones.Intersect(gPhones).Any();
-                    });
-
-                    if (match != null)
-                    {
-                        match.RemoteId = gc.Id;
                         await myContactList.SaveContactAsync(match);
-                        linkedCount++;
-                        System.Diagnostics.Debug.WriteLine($"[=] Связан локальный контакт: {gName}");
                     }
                 }
-
-                // Если контакта на телефоне вообще нет — создаем его
-                if (match == null)
+                else
                 {
+                    // Создаем новый контакт из Google на телефоне
                     var contact = new Contact
                     {
                         RemoteId = gc.Id,
@@ -177,24 +258,9 @@ namespace SyncComponent
                     }
 
                     await myContactList.SaveContactAsync(contact);
-                    existingContacts.Add(contact); // Запоминаем для следующей фазы и для сохранения ID
+                    existingContacts.Add(contact);
                     downloadedCount++;
                     System.Diagnostics.Debug.WriteLine($"[+] Скачан контакт: {gc.FirstName} {gc.LastName}");
-                }
-            }
-
-            // === ФАЗА 4: ВЫГРУЗКА В GOOGLE (Новые локальные контакты) ===
-            var toUpload = existingContacts.Where(c => string.IsNullOrEmpty(c.RemoteId)).ToList();
-            foreach (var localContact in toUpload)
-            {
-                System.Diagnostics.Debug.WriteLine($"[^] Выгрузка в Google: {localContact.FirstName} {localContact.LastName}");
-                string newGoogleId = await CreateGoogleContactAsync(accessToken, localContact);
-
-                if (!string.IsNullOrEmpty(newGoogleId))
-                {
-                    localContact.RemoteId = newGoogleId;
-                    await myContactList.SaveContactAsync(localContact);
-                    uploadedCount++;
                 }
             }
 
@@ -202,7 +268,7 @@ namespace SyncComponent
             var newSyncedIds = existingContacts.Select(c => c.RemoteId).Where(id => !string.IsNullOrEmpty(id));
             await SaveSyncedIdsAsync(newSyncedIds);
 
-            System.Diagnostics.Debug.WriteLine($"=== ЗАВЕРШЕНО. Связано: {linkedCount}, Скачано: {downloadedCount}, Выгружено: {uploadedCount}, Удал(Локал): {localDeletedCount}, Удал(Google): {cloudDeletedCount} ===");
+            System.Diagnostics.Debug.WriteLine($"=== ЗАВЕРШЕНО. Связано: {linkedCount}, Скачано: {downloadedCount}, Выгружено/Обновлено: {uploadedCount}, Удал(Локал): {localDeletedCount}, Удал(Google): {cloudDeletedCount} ===");
         }
 
         private string CleanPhone(string phone)
@@ -268,6 +334,9 @@ namespace SyncComponent
 
                                 if (person.ContainsKey("resourceName"))
                                     parsedContact.Id = person.GetNamedString("resourceName");
+
+                                if (person.ContainsKey("etag"))
+                                    parsedContact.ETag = person.GetNamedString("etag");
 
                                 if (person.ContainsKey("names"))
                                 {
@@ -418,6 +487,7 @@ namespace SyncComponent
     internal class GoogleContact
     {
         public string Id { get; set; } = "";
+        public string ETag { get; set; } = "";
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public List<string> Phones { get; set; } = new List<string>();
