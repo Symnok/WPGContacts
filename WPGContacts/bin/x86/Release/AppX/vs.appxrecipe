@@ -10,13 +10,13 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>c0433f23-2b0f-4c71-95d9-262b68630ef8</PackageIdentityName>
     <PackageIdentityPublisher>CN=User</PackageIdentityPublisher>
-    <IntermediateOutputPath>c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\obj\x86\Release\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\obj\x86\Release\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
-    <RegisteredManifestChecksum>B16E2B65F1C488A474A7DBFBBB266C06B8DF76905E27243638755634ADEACE25</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>22F674D71599FFF9CA8EDA627C5A33FC0B363F9E438297887D9630FDF61F6491</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>c0433f23-2b0f-4c71-95d9-262b68630ef8_1.0.0.0_x86__4sdaedqydyjdm</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>c0433f23-2b0f-4c71-95d9-262b68630ef8_4sdaedqydyjdm!App</RegisteredUserModeAppID>
     <RegisteredPackageID>c0433f23-2b0f-4c71-95d9-262b68630ef8</RegisteredPackageID>
@@ -25,71 +25,71 @@
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-03-10T11:33:51.217</Modified>
+      <Modified>2026-03-11T03:56:46.761</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.489</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.489</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.489</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.490</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.490</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.490</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-02-15T16:32:56.000</Modified>
+      <Modified>2026-03-10T15:42:01.490</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\ClrCompression.dll">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\ClrCompression.dll">
       <PackagePath>ClrCompression.dll</PackagePath>
       <Modified>2015-07-22T20:08:02.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\resources.pri">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-03-10T11:33:42.416</Modified>
+      <Modified>2026-03-11T03:56:37.074</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\SyncComponent.winmd">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\SyncComponent.winmd">
       <PackagePath>SyncComponent.winmd</PackagePath>
-      <Modified>2026-03-10T11:33:41.455</Modified>
+      <Modified>2026-03-11T03:56:36.053</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.dll">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.dll">
       <PackagePath>WPGContacts.dll</PackagePath>
-      <Modified>2026-03-10T11:33:51.114</Modified>
+      <Modified>2026-03-11T03:56:46.661</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.exe">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.exe">
       <PackagePath>WPGContacts.exe</PackagePath>
-      <Modified>2026-03-10T11:33:51.212</Modified>
+      <Modified>2026-03-11T03:56:46.756</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\user\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.pdb">
+    <AppxPackagedFile Include="C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\bin\x86\Release\ilc\WPGContacts.pdb">
       <PackagePath>WPGContacts.pdb</PackagePath>
-      <Modified>2026-03-10T11:33:51.211</Modified>
+      <Modified>2026-03-11T03:56:46.756</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

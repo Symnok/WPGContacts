@@ -74,8 +74,9 @@ namespace WPGContacts
                         var dataPackage = new Windows.ApplicationModel.DataTransfer.DataPackage();
                         dataPackage.SetText(userCode);
                         Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dataPackage);
+                        StatusText.Text = "Откройте " + verificationUrl + " в современном браузере и введите код.";
 
-                        await Windows.System.Launcher.LaunchUriAsync(new Uri(verificationUrl));
+                       //await Windows.System.Launcher.LaunchUriAsync(new Uri(verificationUrl));
 
                         // Передаем ключи в метод поллинга
                         StartPollingForToken(deviceCode, interval, clientId, clientSecret);
