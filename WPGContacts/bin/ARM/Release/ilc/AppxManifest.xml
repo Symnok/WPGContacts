@@ -7,7 +7,7 @@
 
  Дополнительные сведения о файлах манифестов приложений см. по адресу http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.0.0.0" ProcessorArchitecture="arm" />
+  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.1.0.0" ProcessorArchitecture="arm" />
   <mp:PhoneIdentity PhoneProductId="c0433f23-2b0f-4c71-95d9-262b68630ef8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WPGContacts</DisplayName>
@@ -17,7 +17,7 @@
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.10586.0" MaxVersionTested="10.0.14393.0" />
     <PackageDependency Name="Microsoft.VCLibs.140.00" MinVersion="14.0.22929.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
-    <PackageDependency Name="Microsoft.NET.Native.Framework.1.3" MinVersion="1.3.24201.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+    <PackageDependency Name="Microsoft.NET.Native.Framework.1.3" MinVersion="1.3.24211.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
     <PackageDependency Name="Microsoft.NET.Native.Runtime.1.4" MinVersion="1.4.24201.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
   </Dependencies>
   <Resources>
@@ -48,8 +48,8 @@
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>
         <Path>WPGContacts.dll</Path>
-        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
         <ActivatableClass ActivatableClassId="SyncComponent.ContactSyncTask" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
   </Extensions>

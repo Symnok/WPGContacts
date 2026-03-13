@@ -1,1 +1,1 @@
-C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\AppPackages\WPGContacts_1.0.0.0_ARM_Test\WPGContacts_1.0.0.0_ARM.appx
+C:\Users\User\documents\visual studio 2015\Projects\WPGContacts\WPGContacts\AppPackages\WPGContacts_1.1.0.0_ARM_Test\WPGContacts_1.1.0.0_ARM.appx

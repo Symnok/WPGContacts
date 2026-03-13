@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.0.0.0" />
+  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="c0433f23-2b0f-4c71-95d9-262b68630ef8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WPGContacts</DisplayName>

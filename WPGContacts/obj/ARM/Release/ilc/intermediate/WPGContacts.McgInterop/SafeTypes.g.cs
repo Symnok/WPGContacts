@@ -1587,6 +1587,26 @@ namespace Windows.ApplicationModel.Contacts
 		}
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Notes")]
+		public string get_Notes()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.get_Notes(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Notes")]
+		public void put_Notes(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.put_Notes(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Phones")]
 		public global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> get_Phones()
 		{
@@ -1618,6 +1638,15 @@ namespace Windows.ApplicationModel.Contacts
 		public global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactDate> get_ImportantDates()
 		{
 			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactDate> __retVal = global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.get_ImportantDates(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "JobInfo")]
+		public global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> get_JobInfo()
+		{
+			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> __retVal = global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.get_JobInfo(this);
 			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
 			return __retVal;
 		}
@@ -1744,6 +1773,15 @@ namespace Windows.ApplicationModel.Contacts
 		}
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		public global::Windows.ApplicationModel.Contacts.ContactPhoneKind get_Kind()
+		{
+			global::Windows.ApplicationModel.Contacts.ContactPhoneKind __retVal = global::Windows.ApplicationModel.Contacts.IContactPhone__Impl.StubClass.get_Kind(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
 		public void put_Kind(global::Windows.ApplicationModel.Contacts.ContactPhoneKind value)
 		{
@@ -1796,6 +1834,15 @@ namespace Windows.ApplicationModel.Contacts
 		}
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		public global::Windows.ApplicationModel.Contacts.ContactEmailKind get_Kind()
+		{
+			global::Windows.ApplicationModel.Contacts.ContactEmailKind __retVal = global::Windows.ApplicationModel.Contacts.IContactEmail__Impl.StubClass.get_Kind(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
 		public void put_Kind(global::Windows.ApplicationModel.Contacts.ContactEmailKind value)
 		{
@@ -1845,6 +1892,95 @@ namespace Windows.ApplicationModel.Contacts
 								value
 							);
 			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Locality")]
+		public string get_Locality()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Locality(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Locality")]
+		public void put_Locality(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Locality(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Region")]
+		public string get_Region()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Region(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Region")]
+		public void put_Region(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Region(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Country")]
+		public string get_Country()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Country(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Country")]
+		public void put_Country(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Country(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "PostalCode")]
+		public string get_PostalCode()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_PostalCode(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "PostalCode")]
+		public void put_PostalCode(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_PostalCode(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		public global::Windows.ApplicationModel.Contacts.ContactAddressKind get_Kind()
+		{
+			global::Windows.ApplicationModel.Contacts.ContactAddressKind __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Kind(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
 		}
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
@@ -1960,6 +2096,67 @@ namespace Windows.ApplicationModel.Contacts
 		}
 
 		public ContactDate(global::System.IntPtr dummy)
+		{
+		}
+	}
+
+	[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo))]
+	[global::System.Runtime.InteropServices.McgWindowsRuntimeVersion(65536)]
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe sealed class ContactJobInfo : global::System.__ComObject, global::Windows.ApplicationModel.Contacts.IContactJobInfo
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+		public ContactJobInfo()
+		{
+			global::System.IntPtr retval;
+			retval = global::System.Runtime.InteropServices.McgModuleManager.ActivateInstance("Windows.ApplicationModel.Contacts.ContactJobInfo");
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			this.__AttachAndRelease(retval);
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "CompanyName")]
+		public string get_CompanyName()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.get_CompanyName(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "CompanyName")]
+		public void put_CompanyName(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.put_CompanyName(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Title")]
+		public string get_Title()
+		{
+			string __retVal = global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.get_Title(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Title")]
+		public void put_Title(string value)
+		{
+			global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.put_Title(
+								this, 
+								value
+							);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+		}
+
+		public ContactJobInfo(global::System.IntPtr dummy)
 		{
 		}
 	}
@@ -2194,6 +2391,14 @@ namespace Windows.ApplicationModel.Contacts
 	public unsafe interface IContact2 : global::Windows.ApplicationModel.Contacts.IContact
 	{
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Notes")]
+		string get_Notes();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Notes")]
+		void put_Notes(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Phones")]
 		global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> get_Phones();
 
@@ -2208,6 +2413,10 @@ namespace Windows.ApplicationModel.Contacts
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "ImportantDates")]
 		global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactDate> get_ImportantDates();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "JobInfo")]
+		global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> get_JobInfo();
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Websites")]
@@ -2227,6 +2436,10 @@ namespace Windows.ApplicationModel.Contacts
 		void put_Number(string value);
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		global::Windows.ApplicationModel.Contacts.ContactPhoneKind get_Kind();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
 		void put_Kind(global::Windows.ApplicationModel.Contacts.ContactPhoneKind value);
 	}
@@ -2244,6 +2457,10 @@ namespace Windows.ApplicationModel.Contacts
 		void put_Address(string value);
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		global::Windows.ApplicationModel.Contacts.ContactEmailKind get_Kind();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
 		void put_Kind(global::Windows.ApplicationModel.Contacts.ContactEmailKind value);
 	}
@@ -2259,6 +2476,42 @@ namespace Windows.ApplicationModel.Contacts
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "StreetAddress")]
 		void put_StreetAddress(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Locality")]
+		string get_Locality();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Locality")]
+		void put_Locality(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Region")]
+		string get_Region();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Region")]
+		void put_Region(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Country")]
+		string get_Country();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Country")]
+		void put_Country(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "PostalCode")]
+		string get_PostalCode();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "PostalCode")]
+		void put_PostalCode(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Kind")]
+		global::Windows.ApplicationModel.Contacts.ContactAddressKind get_Kind();
 
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
@@ -2300,6 +2553,27 @@ namespace Windows.ApplicationModel.Contacts
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Kind")]
 		void put_Kind(global::Windows.ApplicationModel.Contacts.ContactDateKind value);
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IContactJobInfo
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "CompanyName")]
+		string get_CompanyName();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "CompanyName")]
+		void put_CompanyName(string value);
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Title")]
+		string get_Title();
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Title")]
+		void put_Title(string value);
 	}
 
 	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]

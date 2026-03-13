@@ -3501,6 +3501,200 @@ namespace System.Collections.Generic
 		}
 	}
 
+	// System.Collections.Generic.IList<Windows.ApplicationModel.Contacts.ContactJobInfo>
+	public unsafe static class IList_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl
+	{
+		// DispatchClass for 'System.Collections.Generic.IList<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>, global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>
+		{
+			global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.ContactJobInfo> global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.GetEnumerator()
+			{
+				return (global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>)global::McgInterop.McgHelpers.GetGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle
+								);
+			}
+
+			global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator()
+			{
+				return global::McgInterop.McgHelpers.GetNonGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle
+								);
+			}
+
+			int global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Count
+			{
+				get
+				{
+					return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Count(this);
+				}
+			}
+
+			bool global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.IsReadOnly
+			{
+				get
+				{
+					return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.IsReadOnly(this);
+				}
+			}
+
+			void global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Add(global::Windows.ApplicationModel.Contacts.ContactJobInfo item)
+			{
+				global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Add(
+									this, 
+									item
+								);
+			}
+
+			void global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Clear()
+			{
+				global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Clear(this);
+			}
+
+			bool global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Contains(global::Windows.ApplicationModel.Contacts.ContactJobInfo item)
+			{
+				return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Contains(
+									this, 
+									item
+								);
+			}
+
+			void global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.CopyTo(
+						global::Windows.ApplicationModel.Contacts.ContactJobInfo[] array, 
+						int arrayindex)
+			{
+				global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.CopyTo(
+									this, 
+									array, 
+									arrayindex
+								);
+			}
+
+			bool global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Remove(global::Windows.ApplicationModel.Contacts.ContactJobInfo item)
+			{
+				return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Remove(
+									this, 
+									item
+								);
+			}
+
+			global::Windows.ApplicationModel.Contacts.ContactJobInfo global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.this[int index]
+			{
+				get
+				{
+					return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Indexer_Get(
+										this, 
+										index
+									);
+				}
+				set
+				{
+					global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Indexer_Set(
+										this, 
+										index, 
+										value
+									);
+				}
+			}
+
+			int global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.IndexOf(global::Windows.ApplicationModel.Contacts.ContactJobInfo item)
+			{
+				return global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.IndexOf(
+									this, 
+									item
+								);
+			}
+
+			void global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.Insert(
+						int index, 
+						global::Windows.ApplicationModel.Contacts.ContactJobInfo item)
+			{
+				global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.Insert(
+									this, 
+									index, 
+									item
+								);
+			}
+
+			void global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.RemoveAt(int index)
+			{
+				global::System.Runtime.InteropServices.WindowsRuntime.IVectorSharedReferenceTypesRCWAdapter.RemoveAt(
+									this, 
+									index
+								);
+			}
+		}
+
+		// v-table for 'System.Collections.Generic.IList<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.ICollection<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_GetAt = 6;
+			internal const int idx_get_Size = 7;
+			internal const int idx_GetView = 8;
+			internal const int idx_IndexOf = 9;
+			internal const int idx_SetAt = 10;
+			internal const int idx_InsertAt = 11;
+			internal const int idx_RemoveAt = 12;
+			internal const int idx_Append = 13;
+			internal const int idx_RemoveAtEnd = 14;
+			internal const int idx_Clear = 15;
+			internal const int idx_GetMany = 16;
+			internal const int idx_ReplaceAll = 17;
+		}
+	}
+
+	// System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.ContactJobInfo>
+	public unsafe static class IEnumerable_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl
+	{
+		// DispatchClass for 'System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>
+		{
+			global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.ContactJobInfo> global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.GetEnumerator()
+			{
+				global::System.RuntimeTypeHandle dummySharedDynamicAdapter = typeof(global::System.Runtime.InteropServices.WindowsRuntime.IIterableSharedReferenceTypesDynamicAdapter<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle;
+				return (global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>)global::McgInterop.McgHelpers.GetGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle
+								);
+			}
+
+			global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator()
+			{
+				return global::McgInterop.McgHelpers.GetNonGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle
+								);
+			}
+		}
+
+		// v-table for 'System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_First = 6;
+		}
+	}
+
+	// System.Collections.Generic.IReadOnlyList<Windows.ApplicationModel.Contacts.ContactJobInfo>
+	public unsafe static class IReadOnlyList_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl
+	{
+		// v-table for 'System.Collections.Generic.IReadOnlyList<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IReadOnlyList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_GetAt = 6;
+			internal const int idx_get_Size = 7;
+			internal const int idx_IndexOf = 8;
+			internal const int idx_GetMany = 9;
+		}
+	}
+
 	// System.Collections.Generic.IList<Windows.ApplicationModel.Contacts.ContactWebsite>
 	public unsafe static class IList_A_Windows_ApplicationModel_Contacts_ContactWebsite_V___Impl
 	{
@@ -5844,6 +6038,39 @@ namespace System.Collections.Generic
 
 		// v-table for 'System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.IContactDate>'
 		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactDate>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_First = 6;
+		}
+	}
+
+	// System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.IContactJobInfo>
+	public unsafe static class IEnumerable_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl
+	{
+		// DispatchClass for 'System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.IContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>
+		{
+			global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.IContactJobInfo> global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>.GetEnumerator()
+			{
+				global::System.RuntimeTypeHandle dummySharedDynamicAdapter = typeof(global::System.Runtime.InteropServices.WindowsRuntime.IIterableSharedReferenceTypesDynamicAdapter<global::Windows.ApplicationModel.Contacts.IContactJobInfo>).TypeHandle;
+				return (global::System.Collections.Generic.IEnumerator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>)global::McgInterop.McgHelpers.GetGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>).TypeHandle
+								);
+			}
+
+			global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator()
+			{
+				return global::McgInterop.McgHelpers.GetNonGenericEnumerator(
+									this, 
+									typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>).TypeHandle
+								);
+			}
+		}
+
+		// v-table for 'System.Collections.Generic.IEnumerable<Windows.ApplicationModel.Contacts.IContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::System.Collections.Generic.IEnumerable<global::Windows.ApplicationModel.Contacts.IContactJobInfo>))]
 		public unsafe partial struct Vtbl
 		{
 			internal const int idx_First = 6;
@@ -12639,6 +12866,30 @@ namespace Windows.ApplicationModel.Contacts
 		public static partial class StubClass
 		{
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_Notes(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContact2>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContact2__Impl.Vtbl.idx_get_Notes
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_Notes(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContact2>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContact2__Impl.Vtbl.idx_put_Notes
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			public static global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> get_Phones(global::System.__ComObject __this)
 			{
 				global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> __ret = global::McgInterop.ForwardComSharedStubs.Func_TResult__<global::Windows.ApplicationModel.Contacts.IContact2, global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone>>(
@@ -12683,6 +12934,17 @@ namespace Windows.ApplicationModel.Contacts
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> get_JobInfo(global::System.__ComObject __this)
+			{
+				global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> __ret = global::McgInterop.ForwardComSharedStubs.Func_TResult__<global::Windows.ApplicationModel.Contacts.IContact2, global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContact2__Impl.Vtbl.idx_get_JobInfo
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			public static global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactWebsite> get_Websites(global::System.__ComObject __this)
 			{
 				global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactWebsite> __ret = global::McgInterop.ForwardComSharedStubs.Func_TResult__<global::Windows.ApplicationModel.Contacts.IContact2, global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactWebsite>>(
@@ -12698,6 +12960,26 @@ namespace Windows.ApplicationModel.Contacts
 		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.ApplicationModel.Contacts.IContact2))]
 		public abstract partial class DispatchClass : global::System.__ComObject, global::Windows.ApplicationModel.Contacts.IContact2
 		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.Notes")]
+			string global::Windows.ApplicationModel.Contacts.IContact2.get_Notes()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.get_Notes(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContact2.Notes")]
+			void global::Windows.ApplicationModel.Contacts.IContact2.put_Notes(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.put_Notes(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.Phones")]
 			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> global::Windows.ApplicationModel.Contacts.IContact2.get_Phones()
@@ -12735,6 +13017,15 @@ namespace Windows.ApplicationModel.Contacts
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.JobInfo")]
+			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> global::Windows.ApplicationModel.Contacts.IContact2.get_JobInfo()
+			{
+				global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> __retVal = global::Windows.ApplicationModel.Contacts.IContact2__Impl.StubClass.get_JobInfo(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.Websites")]
 			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactWebsite> global::Windows.ApplicationModel.Contacts.IContact2.get_Websites()
 			{
@@ -12748,10 +13039,13 @@ namespace Windows.ApplicationModel.Contacts
 		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.ApplicationModel.Contacts.IContact2))]
 		public unsafe partial struct Vtbl
 		{
+			internal const int idx_get_Notes = 8;
+			internal const int idx_put_Notes = 9;
 			internal const int idx_get_Phones = 10;
 			internal const int idx_get_Emails = 11;
 			internal const int idx_get_Addresses = 12;
 			internal const int idx_get_ImportantDates = 14;
+			internal const int idx_get_JobInfo = 16;
 			internal const int idx_get_Websites = 18;
 		}
 	}
@@ -12784,6 +13078,28 @@ namespace Windows.ApplicationModel.Contacts
 									global::Windows.ApplicationModel.Contacts.IContactPhone__Impl.Vtbl.idx_put_Number
 								);
 				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			// Signature, Windows.ApplicationModel.Contacts.IContactPhone.get_Kind, [fwd] [return] [Mcg.CodeGen.ComHRESULTReturnMarshaller] void__int, [fwd] [out] [retval] [nativebyref] [Mcg.CodeGen.EnumMarshaller] Windows_ApplicationModel_Contacts_ContactPhoneKind__Windows_ApplicationModel_Contacts__ContactPhoneKind, 
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::Windows.ApplicationModel.Contacts.ContactPhoneKind get_Kind(global::System.__ComObject __this)
+			{
+				// Setup
+				global::Windows.ApplicationModel.Contacts.ContactPhoneKind unsafe_value__retval;
+				global::Windows.ApplicationModel.Contacts.ContactPhoneKind value__retval;
+				int unsafe___return__;
+				// Marshalling
+				// Call to native method
+				unsafe___return__ = global::McgInterop.ComCallHelpers.ComCall__HRESULT(
+									__this, 
+									typeof(global::Windows.ApplicationModel.Contacts.IContactPhone).TypeHandle, 
+									global::Windows.ApplicationModel.Contacts.IContactPhone__Impl.Vtbl.idx_get_Kind, 
+									&(unsafe_value__retval)
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				value__retval = unsafe_value__retval;
+				// Return
+				return value__retval;
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
@@ -12825,6 +13141,15 @@ namespace Windows.ApplicationModel.Contacts
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactPhone.Kind")]
+			global::Windows.ApplicationModel.Contacts.ContactPhoneKind global::Windows.ApplicationModel.Contacts.IContactPhone.get_Kind()
+			{
+				global::Windows.ApplicationModel.Contacts.ContactPhoneKind __retVal = global::Windows.ApplicationModel.Contacts.IContactPhone__Impl.StubClass.get_Kind(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactPhone.Kind")]
 			void global::Windows.ApplicationModel.Contacts.IContactPhone.put_Kind(global::Windows.ApplicationModel.Contacts.ContactPhoneKind value)
 			{
@@ -12842,6 +13167,7 @@ namespace Windows.ApplicationModel.Contacts
 		{
 			internal const int idx_get_Number = 6;
 			internal const int idx_put_Number = 7;
+			internal const int idx_get_Kind = 8;
 			internal const int idx_put_Kind = 9;
 		}
 	}
@@ -12874,6 +13200,28 @@ namespace Windows.ApplicationModel.Contacts
 									global::Windows.ApplicationModel.Contacts.IContactEmail__Impl.Vtbl.idx_put_Address
 								);
 				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			// Signature, Windows.ApplicationModel.Contacts.IContactEmail.get_Kind, [fwd] [return] [Mcg.CodeGen.ComHRESULTReturnMarshaller] void__int, [fwd] [out] [retval] [nativebyref] [Mcg.CodeGen.EnumMarshaller] Windows_ApplicationModel_Contacts_ContactEmailKind__Windows_ApplicationModel_Contacts__ContactEmailKind, 
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::Windows.ApplicationModel.Contacts.ContactEmailKind get_Kind(global::System.__ComObject __this)
+			{
+				// Setup
+				global::Windows.ApplicationModel.Contacts.ContactEmailKind unsafe_value__retval;
+				global::Windows.ApplicationModel.Contacts.ContactEmailKind value__retval;
+				int unsafe___return__;
+				// Marshalling
+				// Call to native method
+				unsafe___return__ = global::McgInterop.ComCallHelpers.ComCall__HRESULT(
+									__this, 
+									typeof(global::Windows.ApplicationModel.Contacts.IContactEmail).TypeHandle, 
+									global::Windows.ApplicationModel.Contacts.IContactEmail__Impl.Vtbl.idx_get_Kind, 
+									&(unsafe_value__retval)
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				value__retval = unsafe_value__retval;
+				// Return
+				return value__retval;
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
@@ -12915,6 +13263,15 @@ namespace Windows.ApplicationModel.Contacts
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactEmail.Kind")]
+			global::Windows.ApplicationModel.Contacts.ContactEmailKind global::Windows.ApplicationModel.Contacts.IContactEmail.get_Kind()
+			{
+				global::Windows.ApplicationModel.Contacts.ContactEmailKind __retVal = global::Windows.ApplicationModel.Contacts.IContactEmail__Impl.StubClass.get_Kind(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactEmail.Kind")]
 			void global::Windows.ApplicationModel.Contacts.IContactEmail.put_Kind(global::Windows.ApplicationModel.Contacts.ContactEmailKind value)
 			{
@@ -12932,6 +13289,7 @@ namespace Windows.ApplicationModel.Contacts
 		{
 			internal const int idx_get_Address = 6;
 			internal const int idx_put_Address = 7;
+			internal const int idx_get_Kind = 8;
 			internal const int idx_put_Kind = 9;
 		}
 	}
@@ -12964,6 +13322,124 @@ namespace Windows.ApplicationModel.Contacts
 									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_put_StreetAddress
 								);
 				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_Locality(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_get_Locality
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_Locality(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_put_Locality
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_Region(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_get_Region
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_Region(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_put_Region
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_Country(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_get_Country
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_Country(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_put_Country
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_PostalCode(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_get_PostalCode
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_PostalCode(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactAddress>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_put_PostalCode
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			// Signature, Windows.ApplicationModel.Contacts.IContactAddress.get_Kind, [fwd] [return] [Mcg.CodeGen.ComHRESULTReturnMarshaller] void__int, [fwd] [out] [retval] [nativebyref] [Mcg.CodeGen.EnumMarshaller] Windows_ApplicationModel_Contacts_ContactAddressKind__Windows_ApplicationModel_Contacts__ContactAddressKind, 
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::Windows.ApplicationModel.Contacts.ContactAddressKind get_Kind(global::System.__ComObject __this)
+			{
+				// Setup
+				global::Windows.ApplicationModel.Contacts.ContactAddressKind unsafe_value__retval;
+				global::Windows.ApplicationModel.Contacts.ContactAddressKind value__retval;
+				int unsafe___return__;
+				// Marshalling
+				// Call to native method
+				unsafe___return__ = global::McgInterop.ComCallHelpers.ComCall__HRESULT(
+									__this, 
+									typeof(global::Windows.ApplicationModel.Contacts.IContactAddress).TypeHandle, 
+									global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.Vtbl.idx_get_Kind, 
+									&(unsafe_value__retval)
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				value__retval = unsafe_value__retval;
+				// Return
+				return value__retval;
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
@@ -13005,6 +13481,95 @@ namespace Windows.ApplicationModel.Contacts
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactAddress.Locality")]
+			string global::Windows.ApplicationModel.Contacts.IContactAddress.get_Locality()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Locality(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactAddress.Locality")]
+			void global::Windows.ApplicationModel.Contacts.IContactAddress.put_Locality(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Locality(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactAddress.Region")]
+			string global::Windows.ApplicationModel.Contacts.IContactAddress.get_Region()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Region(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactAddress.Region")]
+			void global::Windows.ApplicationModel.Contacts.IContactAddress.put_Region(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Region(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactAddress.Country")]
+			string global::Windows.ApplicationModel.Contacts.IContactAddress.get_Country()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Country(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactAddress.Country")]
+			void global::Windows.ApplicationModel.Contacts.IContactAddress.put_Country(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_Country(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactAddress.PostalCode")]
+			string global::Windows.ApplicationModel.Contacts.IContactAddress.get_PostalCode()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_PostalCode(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactAddress.PostalCode")]
+			void global::Windows.ApplicationModel.Contacts.IContactAddress.put_PostalCode(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.put_PostalCode(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactAddress.Kind")]
+			global::Windows.ApplicationModel.Contacts.ContactAddressKind global::Windows.ApplicationModel.Contacts.IContactAddress.get_Kind()
+			{
+				global::Windows.ApplicationModel.Contacts.ContactAddressKind __retVal = global::Windows.ApplicationModel.Contacts.IContactAddress__Impl.StubClass.get_Kind(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactAddress.Kind")]
 			void global::Windows.ApplicationModel.Contacts.IContactAddress.put_Kind(global::Windows.ApplicationModel.Contacts.ContactAddressKind value)
 			{
@@ -13022,6 +13587,15 @@ namespace Windows.ApplicationModel.Contacts
 		{
 			internal const int idx_get_StreetAddress = 6;
 			internal const int idx_put_StreetAddress = 7;
+			internal const int idx_get_Locality = 8;
+			internal const int idx_put_Locality = 9;
+			internal const int idx_get_Region = 10;
+			internal const int idx_put_Region = 11;
+			internal const int idx_get_Country = 12;
+			internal const int idx_put_Country = 13;
+			internal const int idx_get_PostalCode = 14;
+			internal const int idx_put_PostalCode = 15;
+			internal const int idx_get_Kind = 16;
 			internal const int idx_put_Kind = 17;
 		}
 	}
@@ -13295,6 +13869,117 @@ namespace Windows.ApplicationModel.Contacts
 		}
 	}
 
+	// Windows.ApplicationModel.Contacts.IContactJobInfo
+	public unsafe static class IContactJobInfo__Impl
+	{
+		// StubClass for 'Windows.ApplicationModel.Contacts.IContactJobInfo'
+		public static partial class StubClass
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_CompanyName(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactJobInfo>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl.idx_get_CompanyName
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_CompanyName(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactJobInfo>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl.idx_put_CompanyName
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static string get_Title(global::System.__ComObject __this)
+			{
+				string __ret = global::McgInterop.ForwardComSharedStubs.Func_string__<global::Windows.ApplicationModel.Contacts.IContactJobInfo>(
+									__this, 
+									global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl.idx_get_Title
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static void put_Title(
+						global::System.__ComObject __this, 
+						string value)
+			{
+				global::McgInterop.ForwardComSharedStubs.Proc_string__<global::Windows.ApplicationModel.Contacts.IContactJobInfo>(
+									__this, 
+									value, 
+									global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl.idx_put_Title
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+		}
+
+		// DispatchClass for 'Windows.ApplicationModel.Contacts.IContactJobInfo'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::Windows.ApplicationModel.Contacts.IContactJobInfo
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactJobInfo.CompanyName")]
+			string global::Windows.ApplicationModel.Contacts.IContactJobInfo.get_CompanyName()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.get_CompanyName(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactJobInfo.CompanyName")]
+			void global::Windows.ApplicationModel.Contacts.IContactJobInfo.put_CompanyName(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.put_CompanyName(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContactJobInfo.Title")]
+			string global::Windows.ApplicationModel.Contacts.IContactJobInfo.get_Title()
+			{
+				string __retVal = global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.get_Title(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContactJobInfo.Title")]
+			void global::Windows.ApplicationModel.Contacts.IContactJobInfo.put_Title(string value)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.StubClass.put_Title(
+									this, 
+									value
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			}
+		}
+
+		// v-table for 'Windows.ApplicationModel.Contacts.IContactJobInfo'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_get_CompanyName = 6;
+			internal const int idx_put_CompanyName = 7;
+			internal const int idx_get_Title = 12;
+			internal const int idx_put_Title = 13;
+		}
+	}
+
 	// Windows.ApplicationModel.Contacts.IContactWebsite
 	public unsafe static class IContactWebsite__Impl
 	{
@@ -13550,6 +14235,21 @@ namespace Windows.ApplicationModel.Contacts
 		public abstract partial class DispatchClass : global::System.__ComObject, global::Windows.ApplicationModel.Contacts.IContact3
 		{
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.Notes")]
+			string global::Windows.ApplicationModel.Contacts.IContact2.get_Notes()
+			{
+				global::McgInterop.McgHelpers.FailFastForReducedMethod();
+				return default(string);
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertySet, "Windows.ApplicationModel.Contacts.IContact2.Notes")]
+			void global::Windows.ApplicationModel.Contacts.IContact2.put_Notes(string value)
+			{
+				global::McgInterop.McgHelpers.FailFastForReducedMethod();
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.Phones")]
 			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactPhone> global::Windows.ApplicationModel.Contacts.IContact2.get_Phones()
 			{
@@ -13579,6 +14279,14 @@ namespace Windows.ApplicationModel.Contacts
 			{
 				global::McgInterop.McgHelpers.FailFastForReducedMethod();
 				return default(global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactDate>);
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.ApplicationModel.Contacts.IContact2.JobInfo")]
+			global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo> global::Windows.ApplicationModel.Contacts.IContact2.get_JobInfo()
+			{
+				global::McgInterop.McgHelpers.FailFastForReducedMethod();
+				return default(global::System.Collections.Generic.IList<global::Windows.ApplicationModel.Contacts.ContactJobInfo>);
 			}
 
 			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
@@ -24515,6 +25223,154 @@ namespace Windows.Foundation.Collections
 		}
 	}
 
+	// Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactJobInfo>
+	public unsafe static class IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl
+	{
+		// StubClass for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		public static partial class StubClass
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::Windows.ApplicationModel.Contacts.ContactJobInfo get_Current(global::System.__ComObject __this)
+			{
+				global::Windows.ApplicationModel.Contacts.ContactJobInfo __ret = global::McgInterop.ForwardComSharedStubs.Func_TResult__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>, global::Windows.ApplicationModel.Contacts.ContactJobInfo>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.Vtbl.idx_get_Current
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static bool get_HasCurrent(global::System.__ComObject __this)
+			{
+				bool __ret = global::McgInterop.ForwardComSharedStubs.Func_bool__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.Vtbl.idx_get_HasCurrent
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static bool MoveNext(global::System.__ComObject __this)
+			{
+				bool __ret = global::McgInterop.ForwardComSharedStubs.Func_bool__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.Vtbl.idx_MoveNext
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			// Signature, Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactJobInfo>.GetMany, [fwd] [return] [Mcg.CodeGen.ComHRESULTReturnMarshaller] void__int, [fwd] [out] [Mcg.CodeGen.ArrayMarshaller] rg_Windows_ApplicationModel_Contacts_ContactJobInfo__Windows_ApplicationModel_Contacts__ContactJobInfo * *, [fwd] [out] [retval] [nativebyref] [Mcg.CodeGen.BlittableValueMarshaller] uint__unsigned int, 
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static uint GetMany(
+						global::System.__ComObject __this, 
+						global::Windows.ApplicationModel.Contacts.ContactJobInfo[] items)
+			{
+				// Setup
+				uint unsafe_items_mcgLength = 0;
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl*** unsafe_items = default(global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl***);
+				uint unsafe___value__retval;
+				uint __value__retval;
+				int unsafe___return__;
+				try
+				{
+					// Marshalling
+					if (items != null)
+						unsafe_items_mcgLength = (uint)items.Length;
+					if (items != null)
+						unsafe_items = (global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl***)global::McgInterop.McgHelpers.CoTaskMemAllocAndZeroMemory(((global::System.IntPtr)checked(unsafe_items_mcgLength * sizeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl**))));
+					// Call to native method
+					unsafe___return__ = global::McgInterop.ComCallHelpers.ComCall__HRESULT(
+										__this, 
+										typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>).TypeHandle, 
+										global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.Vtbl.idx_GetMany, 
+										unsafe_items_mcgLength, 
+										unsafe_items, 
+										&(unsafe___value__retval)
+									);
+					global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+					__value__retval = unsafe___value__retval;
+					if (items != null)
+						for (uint mcgIdx = 0; (mcgIdx < unsafe_items_mcgLength); mcgIdx++)
+						{
+							// [fwd] [out] [optional] [Mcg.CodeGen.WinRTClassMarshaller] Windows_ApplicationModel_Contacts_ContactJobInfo__Windows_ApplicationModel_Contacts__ContactJobInfo * items
+							items[mcgIdx] = (global::Windows.ApplicationModel.Contacts.ContactJobInfo)global::System.Runtime.InteropServices.McgModuleManager.ComInterfaceToObject(
+												((global::System.IntPtr)unsafe_items[mcgIdx]), 
+												typeof(global::Windows.ApplicationModel.Contacts.ContactJobInfo).TypeHandle
+											);
+						}
+					// Return
+					return __value__retval;
+				}
+				finally
+				{
+					// Cleanup
+					if (unsafe_items != null)
+						for (uint mcgIdx_1 = 0; (mcgIdx_1 < unsafe_items_mcgLength); mcgIdx_1++)
+						{
+							// [fwd] [in] [out] [optional] [Mcg.CodeGen.WinRTClassMarshaller] Windows_ApplicationModel_Contacts_ContactJobInfo__Windows_ApplicationModel_Contacts__ContactJobInfo * items
+							global::System.Runtime.InteropServices.McgMarshal.ComSafeRelease(new global::System.IntPtr(((void*)unsafe_items[mcgIdx_1])));
+						}
+					global::System.Runtime.InteropServices.ExternalInterop.SafeCoTaskMemFree(unsafe_items);
+				}
+			}
+		}
+
+		// DispatchClass for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.Foundation.Collections.IIterator`1.Current")]
+			global::Windows.ApplicationModel.Contacts.ContactJobInfo global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.get_Current()
+			{
+				global::Windows.ApplicationModel.Contacts.ContactJobInfo __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.StubClass.get_Current(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.Foundation.Collections.IIterator`1.HasCurrent")]
+			bool global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.get_HasCurrent()
+			{
+				bool __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.StubClass.get_HasCurrent(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			bool global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.MoveNext()
+			{
+				bool __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.StubClass.MoveNext(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			uint global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>.GetMany(global::Windows.ApplicationModel.Contacts.ContactJobInfo[] items)
+			{
+				uint __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_ContactJobInfo_V___Impl.StubClass.GetMany(
+									this, 
+									items
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+		}
+
+		// v-table for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.ContactJobInfo>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_get_Current = 6;
+			internal const int idx_get_HasCurrent = 7;
+			internal const int idx_MoveNext = 8;
+			internal const int idx_GetMany = 9;
+		}
+	}
+
 	// Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.ContactWebsite>
 	public unsafe static class IIterator_A_Windows_ApplicationModel_Contacts_ContactWebsite_V___Impl
 	{
@@ -27025,6 +27881,154 @@ namespace Windows.Foundation.Collections
 
 		// v-table for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactDate>'
 		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactDate>))]
+		public unsafe partial struct Vtbl
+		{
+			internal const int idx_get_Current = 6;
+			internal const int idx_get_HasCurrent = 7;
+			internal const int idx_MoveNext = 8;
+			internal const int idx_GetMany = 9;
+		}
+	}
+
+	// Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactJobInfo>
+	public unsafe static class IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl
+	{
+		// StubClass for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactJobInfo>'
+		public static partial class StubClass
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static global::Windows.ApplicationModel.Contacts.IContactJobInfo get_Current(global::System.__ComObject __this)
+			{
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo __ret = global::McgInterop.ForwardComSharedStubs.Func_TResult__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>, global::Windows.ApplicationModel.Contacts.IContactJobInfo>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.Vtbl.idx_get_Current
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static bool get_HasCurrent(global::System.__ComObject __this)
+			{
+				bool __ret = global::McgInterop.ForwardComSharedStubs.Func_bool__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.Vtbl.idx_get_HasCurrent
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static bool MoveNext(global::System.__ComObject __this)
+			{
+				bool __ret = global::McgInterop.ForwardComSharedStubs.Func_bool__<global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>>(
+									__this, 
+									global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.Vtbl.idx_MoveNext
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __ret;
+			}
+
+			// Signature, Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactJobInfo>.GetMany, [fwd] [return] [Mcg.CodeGen.ComHRESULTReturnMarshaller] void__int, [fwd] [out] [Mcg.CodeGen.ArrayMarshaller] rg_Windows_ApplicationModel_Contacts_IContactJobInfo__Windows_ApplicationModel_Contacts__IContactJobInfo * *, [fwd] [out] [retval] [nativebyref] [Mcg.CodeGen.BlittableValueMarshaller] uint__unsigned int, 
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			public static uint GetMany(
+						global::System.__ComObject __this, 
+						global::Windows.ApplicationModel.Contacts.IContactJobInfo[] items)
+			{
+				// Setup
+				uint unsafe_items_mcgLength = 0;
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl*** unsafe_items = default(global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl***);
+				uint unsafe___value__retval;
+				uint __value__retval;
+				int unsafe___return__;
+				try
+				{
+					// Marshalling
+					if (items != null)
+						unsafe_items_mcgLength = (uint)items.Length;
+					if (items != null)
+						unsafe_items = (global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl***)global::McgInterop.McgHelpers.CoTaskMemAllocAndZeroMemory(((global::System.IntPtr)checked(unsafe_items_mcgLength * sizeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo__Impl.Vtbl**))));
+					// Call to native method
+					unsafe___return__ = global::McgInterop.ComCallHelpers.ComCall__HRESULT(
+										__this, 
+										typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>).TypeHandle, 
+										global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.Vtbl.idx_GetMany, 
+										unsafe_items_mcgLength, 
+										unsafe_items, 
+										&(unsafe___value__retval)
+									);
+					global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+					__value__retval = unsafe___value__retval;
+					if (items != null)
+						for (uint mcgIdx = 0; (mcgIdx < unsafe_items_mcgLength); mcgIdx++)
+						{
+							// [fwd] [out] [optional] [Mcg.CodeGen.ComInterfaceMarshaller] Windows_ApplicationModel_Contacts_IContactJobInfo__Windows_ApplicationModel_Contacts__IContactJobInfo * items
+							items[mcgIdx] = (global::Windows.ApplicationModel.Contacts.IContactJobInfo)global::System.Runtime.InteropServices.McgModuleManager.ComInterfaceToObject(
+												((global::System.IntPtr)unsafe_items[mcgIdx]), 
+												typeof(global::Windows.ApplicationModel.Contacts.IContactJobInfo).TypeHandle
+											);
+						}
+					// Return
+					return __value__retval;
+				}
+				finally
+				{
+					// Cleanup
+					if (unsafe_items != null)
+						for (uint mcgIdx_1 = 0; (mcgIdx_1 < unsafe_items_mcgLength); mcgIdx_1++)
+						{
+							// [fwd] [in] [out] [optional] [Mcg.CodeGen.ComInterfaceMarshaller] Windows_ApplicationModel_Contacts_IContactJobInfo__Windows_ApplicationModel_Contacts__IContactJobInfo * items
+							global::System.Runtime.InteropServices.McgMarshal.ComSafeRelease(new global::System.IntPtr(((void*)unsafe_items[mcgIdx_1])));
+						}
+					global::System.Runtime.InteropServices.ExternalInterop.SafeCoTaskMemFree(unsafe_items);
+				}
+			}
+		}
+
+		// DispatchClass for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>))]
+		public abstract partial class DispatchClass : global::System.__ComObject, global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>
+		{
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.Foundation.Collections.IIterator`1.Current")]
+			global::Windows.ApplicationModel.Contacts.IContactJobInfo global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>.get_Current()
+			{
+				global::Windows.ApplicationModel.Contacts.IContactJobInfo __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.StubClass.get_Current(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Windows.Foundation.Collections.IIterator`1.HasCurrent")]
+			bool global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>.get_HasCurrent()
+			{
+				bool __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.StubClass.get_HasCurrent(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			bool global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>.MoveNext()
+			{
+				bool __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.StubClass.MoveNext(this);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+
+			[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+			uint global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>.GetMany(global::Windows.ApplicationModel.Contacts.IContactJobInfo[] items)
+			{
+				uint __retVal = global::Windows.Foundation.Collections.IIterator_A_Windows_ApplicationModel_Contacts_IContactJobInfo_V___Impl.StubClass.GetMany(
+									this, 
+									items
+								);
+				global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+				return __retVal;
+			}
+		}
+
+		// v-table for 'Windows.Foundation.Collections.IIterator<Windows.ApplicationModel.Contacts.IContactJobInfo>'
+		[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Foundation.Collections.IIterator<global::Windows.ApplicationModel.Contacts.IContactJobInfo>))]
 		public unsafe partial struct Vtbl
 		{
 			internal const int idx_get_Current = 6;

@@ -7,7 +7,7 @@
 
  Дополнительные сведения о файлах манифестов приложений см. по адресу http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.0.0.0" ProcessorArchitecture="arm" />
+  <Identity Name="c0433f23-2b0f-4c71-95d9-262b68630ef8" Publisher="CN=Computershik" Version="1.1.0.0" ProcessorArchitecture="arm" />
   <mp:PhoneIdentity PhoneProductId="c0433f23-2b0f-4c71-95d9-262b68630ef8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WPGContacts</DisplayName>
@@ -44,8 +44,8 @@
     <Extension Category="windows.activatableClass.inProcessServer">
       <InProcessServer>
         <Path>CLRHost.dll</Path>
-        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
         <ActivatableClass ActivatableClassId="SyncComponent.ContactSyncTask" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="SyncComponent.SyncManager" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
   </Extensions>

@@ -155,7 +155,9 @@ namespace SyncComponent
                     string lastHash = state.Hashes.ContainsKey(gc.Id) ? state.Hashes[gc.Id] : "";
                     string lastEtag = state.Etags.ContainsKey(gc.Id) ? state.Etags[gc.Id] : "";
 
-                    bool cloudChanged = !string.IsNullOrEmpty(lastEtag) && gc.ETag != lastEtag;
+                    bool isFirstV2Sync = string.IsNullOrEmpty(lastEtag);
+                    bool cloudChanged = isFirstV2Sync || gc.ETag != lastEtag;
+
                     bool localChanged = !string.IsNullOrEmpty(lastHash) && localHash != lastHash;
 
                     if (cloudChanged)
@@ -230,47 +232,63 @@ namespace SyncComponent
         {
             lc.FirstName = gc.FirstName;
             lc.LastName = gc.LastName;
+            lc.Notes = gc.Notes;
+
+            lc.JobInfo.Clear();
+            foreach (var org in gc.Organizations)
+                lc.JobInfo.Add(new ContactJobInfo { CompanyName = org.Name, Title = org.Title });
 
             lc.Phones.Clear();
-            foreach (var p in gc.Phones) lc.Phones.Add(new ContactPhone { Number = p, Kind = ContactPhoneKind.Mobile });
+            foreach (var p in gc.Phones)
+            {
+                var kind = ContactPhoneKind.Other;
+                if (p.Type.Contains("mobile")) kind = ContactPhoneKind.Mobile;
+                else if (p.Type.Contains("home")) kind = ContactPhoneKind.Home;
+                else if (p.Type.Contains("work")) kind = ContactPhoneKind.Work;
+                lc.Phones.Add(new ContactPhone { Number = p.Number, Kind = kind });
+            }
 
             lc.Emails.Clear();
-            foreach (var e in gc.Emails) lc.Emails.Add(new ContactEmail { Address = e, Kind = ContactEmailKind.Personal });
+            foreach (var e in gc.Emails)
+            {
+                var kind = ContactEmailKind.Other;
+                if (e.Type.Contains("home")) kind = ContactEmailKind.Personal;
+                else if (e.Type.Contains("work")) kind = ContactEmailKind.Work;
+                lc.Emails.Add(new ContactEmail { Address = e.Address, Kind = kind });
+            }
 
             lc.Addresses.Clear();
-            foreach (var a in gc.Addresses) lc.Addresses.Add(new ContactAddress { StreetAddress = a, Kind = ContactAddressKind.Home });
+            foreach (var a in gc.Addresses)
+            {
+                var kind = a.Type.Contains("work") ? ContactAddressKind.Work : (a.Type.Contains("home") ? ContactAddressKind.Home : ContactAddressKind.Other);
+                lc.Addresses.Add(new ContactAddress
+                {
+                    StreetAddress = a.Street,
+                    Locality = a.City,
+                    Region = a.Region,
+                    PostalCode = a.PostalCode,
+                    Country = a.Country,
+                    Kind = kind
+                });
+            }
 
             lc.Websites.Clear();
             foreach (var w in gc.Urls)
             {
-                if (string.IsNullOrWhiteSpace(w)) continue;
+                if (string.IsNullOrWhiteSpace(w.Value)) continue;
                 Uri result;
-                // Добавьте проверку Scheme (http/https), WinRT это любит
-                if (Uri.TryCreate(w, UriKind.Absolute, out result) && (result.Scheme == "http" || result.Scheme == "https"))
-                {
+                if (Uri.TryCreate(w.Value, UriKind.Absolute, out result) && (result.Scheme == "http" || result.Scheme == "https"))
                     lc.Websites.Add(new ContactWebsite { Uri = result });
-                }
             }
 
             lc.ImportantDates.Clear();
             if (gc.Birthday != null)
             {
-                uint m = gc.Birthday.Month;
-                uint d = gc.Birthday.Day;
-
+                uint m = gc.Birthday.Month; uint d = gc.Birthday.Day;
                 if (m >= 1 && m <= 12 && d >= 1 && d <= 31)
-                {
-                    lc.ImportantDates.Add(new ContactDate
-                    {
-                        Year = gc.Birthday.Year,
-                        Month = gc.Birthday.Month,
-                        Day = gc.Birthday.Day,
-                        Kind = ContactDateKind.Birthday
-                    });
-                }
+                    lc.ImportantDates.Add(new ContactDate { Year = gc.Birthday.Year, Month = m, Day = d, Kind = ContactDateKind.Birthday });
             }
 
-            // Скачиваем фото, если есть URL
             if (!string.IsNullOrEmpty(gc.PhotoUrl) && !gc.PhotoUrl.Contains("default-user"))
             {
                 try
@@ -279,11 +297,12 @@ namespace SyncComponent
                     {
                         var stream = await hc.GetStreamAsync(gc.PhotoUrl);
                         var memStream = new Windows.Storage.Streams.InMemoryRandomAccessStream();
-                        await RandomAccessStream.CopyAsync(stream.AsInputStream(), memStream.GetOutputStreamAt(0));
+                        var inputStream = System.IO.WindowsRuntimeStreamExtensions.AsInputStream(stream);
+                        await Windows.Storage.Streams.RandomAccessStream.CopyAsync(inputStream, memStream.GetOutputStreamAt(0));
                         lc.SourceDisplayPicture = RandomAccessStreamReference.CreateFromStream(memStream);
                     }
                 }
-                catch { } // Игнорируем ошибки скачивания фото
+                catch { }
             }
 
             await list.SaveContactAsync(lc);
@@ -294,11 +313,12 @@ namespace SyncComponent
         private string CalculateHash(GoogleContact gc)
         {
             string bday = gc.Birthday != null ? $"{gc.Birthday.Year}-{gc.Birthday.Month}-{gc.Birthday.Day}" : "";
-            string raw = $"{CleanString(gc.FirstName)}|{CleanString(gc.LastName)}|" +
-                         $"{string.Join(",", gc.Phones.Select(p => CleanString(p).Replace(" ", "").Replace("-", "")).OrderBy(p => p))}|" +
-                         $"{string.Join(",", gc.Emails.Select(CleanString).OrderBy(e => e))}|" +
-                         $"{string.Join(",", gc.Addresses.Select(CleanString).OrderBy(a => a))}|" +
-                         $"{string.Join(",", gc.Urls.Select(CleanString).OrderBy(u => u))}|{bday}";
+            string raw = $"{CleanString(gc.FirstName)}|{CleanString(gc.LastName)}|{CleanString(gc.Notes)}|" +
+                         $"{string.Join(",", gc.Organizations.Select(o => CleanString(o.Name + o.Title)).OrderBy(o => o))}|" +
+                         $"{string.Join(",", gc.Phones.Select(p => CleanPhone(p.Number) + ":" + p.Type).OrderBy(p => p))}|" +
+                         $"{string.Join(",", gc.Emails.Select(e => CleanString(e.Address) + ":" + e.Type).OrderBy(e => e))}|" +
+                         $"{string.Join(",", gc.Addresses.Select(a => CleanString(a.Street + a.City + a.Region + a.Country) + ":" + a.Type).OrderBy(a => a))}|" +
+                         $"{string.Join(",", gc.Urls.Select(u => CleanString(u.Value)).OrderBy(u => u))}|{bday}";
             return ComputeSha1(raw);
         }
 
@@ -308,13 +328,31 @@ namespace SyncComponent
             var bDate = lc.ImportantDates.FirstOrDefault(d => d.Kind == ContactDateKind.Birthday);
             if (bDate != null) bday = $"{bDate.Year}-{bDate.Month}-{bDate.Day}";
 
-            string raw = $"{CleanString(lc.FirstName)}|{CleanString(lc.LastName)}|" +
-                         $"{string.Join(",", lc.Phones.Select(p => CleanString(p.Number).Replace(" ", "").Replace("-", "")).OrderBy(p => p))}|" +
-                         $"{string.Join(",", lc.Emails.Select(e => CleanString(e.Address)).OrderBy(e => e))}|" +
-                         $"{string.Join(",", lc.Addresses.Select(a => CleanString(a.StreetAddress)).OrderBy(a => a))}|" +
+            string raw = $"{CleanString(lc.FirstName)}|{CleanString(lc.LastName)}|{CleanString(lc.Notes)}|" +
+                         $"{string.Join(",", lc.JobInfo.Select(j => CleanString(j.CompanyName + j.Title)).OrderBy(j => j))}|" +
+                         $"{string.Join(",", lc.Phones.Select(p => CleanPhone(p.Number) + ":" + MapUwpPhoneKind(p.Kind)).OrderBy(p => p))}|" +
+                         $"{string.Join(",", lc.Emails.Select(e => CleanString(e.Address) + ":" + MapUwpEmailKind(e.Kind)).OrderBy(e => e))}|" +
+                         $"{string.Join(",", lc.Addresses.Select(a => CleanString(a.StreetAddress + a.Locality + a.Region + a.Country) + ":" + MapUwpAddressKind(a.Kind)).OrderBy(a => a))}|" +
                          $"{string.Join(",", lc.Websites.Select(w => CleanString(w.Uri?.ToString())).OrderBy(u => u))}|{bday}";
             return ComputeSha1(raw);
         }
+
+        private string CleanPhone(string phone)
+        {
+            if (string.IsNullOrEmpty(phone)) return "";
+
+            // Удаляем все визуальные разделители
+            return phone.Replace(" ", "")
+                        .Replace("-", "")
+                        .Replace("(", "")
+                        .Replace(")", "")
+                        .Replace("+", "");
+        }
+
+        // Помощники для маппинга типов в строку для хеша
+        private string MapUwpPhoneKind(ContactPhoneKind k) => k == ContactPhoneKind.Mobile ? "mobile" : (k == ContactPhoneKind.Home ? "home" : (k == ContactPhoneKind.Work ? "work" : "other"));
+        private string MapUwpEmailKind(ContactEmailKind k) => k == ContactEmailKind.Work ? "work" : (k == ContactEmailKind.Personal ? "home" : "other");
+        private string MapUwpAddressKind(ContactAddressKind k) => k == ContactAddressKind.Work ? "work" : (k == ContactAddressKind.Home ? "home" : "other");
 
         private string ComputeSha1(string raw)
         {
@@ -376,7 +414,6 @@ namespace SyncComponent
         {
             JsonObject person = new JsonObject();
 
-            // Имена
             JsonArray names = new JsonArray();
             JsonObject nameObj = new JsonObject();
             nameObj.SetNamedValue("givenName", JsonValue.CreateStringValue(lc.FirstName ?? ""));
@@ -384,43 +421,100 @@ namespace SyncComponent
             names.Add(nameObj);
             person.SetNamedValue("names", names);
 
-            // Телефоны
+            if (!string.IsNullOrEmpty(lc.Notes))
+            {
+                JsonArray bios = new JsonArray();
+                JsonObject bioObj = new JsonObject();
+                bioObj.SetNamedValue("value", JsonValue.CreateStringValue(lc.Notes));
+                bios.Add(bioObj);
+                person.SetNamedValue("biographies", bios);
+            }
+
+            if (lc.JobInfo.Count > 0)
+            {
+                JsonArray orgs = new JsonArray();
+                foreach (var job in lc.JobInfo)
+                {
+                    JsonObject orgObj = new JsonObject();
+                    if (!string.IsNullOrEmpty(job.CompanyName)) orgObj.SetNamedValue("name", JsonValue.CreateStringValue(job.CompanyName));
+                    if (!string.IsNullOrEmpty(job.Title)) orgObj.SetNamedValue("title", JsonValue.CreateStringValue(job.Title));
+                    orgs.Add(orgObj);
+                }
+                person.SetNamedValue("organizations", orgs);
+            }
+
             if (lc.Phones.Count > 0)
             {
                 JsonArray phones = new JsonArray();
                 foreach (var p in lc.Phones)
-                    if (!string.IsNullOrEmpty(p.Number)) phones.Add(new JsonObject { { "value", JsonValue.CreateStringValue(p.Number) } });
+                {
+                    if (!string.IsNullOrEmpty(p.Number))
+                    {
+                        string type = "other";
+                        if (p.Kind == ContactPhoneKind.Mobile) type = "mobile";
+                        else if (p.Kind == ContactPhoneKind.Home) type = "home";
+                        else if (p.Kind == ContactPhoneKind.Work) type = "work";
+
+                        JsonObject pObj = new JsonObject();
+                        pObj.SetNamedValue("value", JsonValue.CreateStringValue(p.Number));
+                        pObj.SetNamedValue("type", JsonValue.CreateStringValue(type));
+                        phones.Add(pObj);
+                    }
+                }
                 person.SetNamedValue("phoneNumbers", phones);
             }
 
-            // Emails
             if (lc.Emails.Count > 0)
             {
                 JsonArray emails = new JsonArray();
                 foreach (var e in lc.Emails)
-                    if (!string.IsNullOrEmpty(e.Address)) emails.Add(new JsonObject { { "value", JsonValue.CreateStringValue(e.Address) } });
+                {
+                    if (!string.IsNullOrEmpty(e.Address))
+                    {
+                        string type = e.Kind == ContactEmailKind.Work ? "work" : (e.Kind == ContactEmailKind.Personal ? "home" : "other");
+                        JsonObject eObj = new JsonObject();
+                        eObj.SetNamedValue("value", JsonValue.CreateStringValue(e.Address));
+                        eObj.SetNamedValue("type", JsonValue.CreateStringValue(type));
+                        emails.Add(eObj);
+                    }
+                }
                 person.SetNamedValue("emailAddresses", emails);
             }
 
-            // Адреса
             if (lc.Addresses.Count > 0)
             {
                 JsonArray addresses = new JsonArray();
                 foreach (var a in lc.Addresses)
-                    if (!string.IsNullOrEmpty(a.StreetAddress)) addresses.Add(new JsonObject { { "streetAddress", JsonValue.CreateStringValue(a.StreetAddress) } });
+                {
+                    string type = a.Kind == ContactAddressKind.Work ? "work" : (a.Kind == ContactAddressKind.Home ? "home" : "other");
+                    JsonObject aObj = new JsonObject();
+                    aObj.SetNamedValue("type", JsonValue.CreateStringValue(type));
+                    if (!string.IsNullOrEmpty(a.StreetAddress)) aObj.SetNamedValue("streetAddress", JsonValue.CreateStringValue(a.StreetAddress));
+                    if (!string.IsNullOrEmpty(a.Locality)) aObj.SetNamedValue("city", JsonValue.CreateStringValue(a.Locality));
+                    if (!string.IsNullOrEmpty(a.Region)) aObj.SetNamedValue("region", JsonValue.CreateStringValue(a.Region));
+                    if (!string.IsNullOrEmpty(a.PostalCode)) aObj.SetNamedValue("postalCode", JsonValue.CreateStringValue(a.PostalCode));
+                    if (!string.IsNullOrEmpty(a.Country)) aObj.SetNamedValue("country", JsonValue.CreateStringValue(a.Country));
+                    addresses.Add(aObj);
+                }
                 person.SetNamedValue("addresses", addresses);
             }
 
-            // URLs (Соцсети)
             if (lc.Websites.Count > 0)
             {
                 JsonArray urls = new JsonArray();
                 foreach (var w in lc.Websites)
-                    if (w.Uri != null) urls.Add(new JsonObject { { "value", JsonValue.CreateStringValue(w.Uri.ToString()) } });
+                {
+                    if (w.Uri != null)
+                    {
+                        JsonObject uObj = new JsonObject();
+                        uObj.SetNamedValue("value", JsonValue.CreateStringValue(w.Uri.ToString()));
+                        uObj.SetNamedValue("type", JsonValue.CreateStringValue("other"));
+                        urls.Add(uObj);
+                    }
+                }
                 person.SetNamedValue("urls", urls);
             }
 
-            // Дни рождения
             var bDate = lc.ImportantDates.FirstOrDefault(d => d.Kind == ContactDateKind.Birthday);
             if (bDate != null)
             {
@@ -450,7 +544,8 @@ namespace SyncComponent
 
                 while (hasMorePages)
                 {
-                    string requestUri = "https://people.googleapis.com/v1/people/me/connections?personFields=names,phoneNumbers,emailAddresses,addresses,urls,birthdays,photos&pageSize=1000";
+                    // ДОБАВЛЕНЫ: organizations, biographies
+                    string requestUri = "https://people.googleapis.com/v1/people/me/connections?personFields=names,phoneNumbers,emailAddresses,addresses,urls,birthdays,photos,organizations,biographies&pageSize=1000";
                     if (!string.IsNullOrEmpty(nextPageToken)) requestUri += $"&pageToken={nextPageToken}";
 
                     var response = await client.GetAsync(requestUri);
@@ -463,48 +558,91 @@ namespace SyncComponent
                             foreach (var item in connections)
                             {
                                 var person = item.GetObject();
-                                var parsedContact = new GoogleContact();
+                                var gc = new GoogleContact();
 
-                                if (person.ContainsKey("resourceName")) parsedContact.Id = person.GetNamedString("resourceName");
-                                if (person.ContainsKey("etag")) parsedContact.ETag = person.GetNamedString("etag");
+                                if (person.ContainsKey("resourceName")) gc.Id = person.GetNamedString("resourceName");
+                                if (person.ContainsKey("etag")) gc.ETag = person.GetNamedString("etag");
 
                                 if (person.ContainsKey("names"))
                                 {
-                                    var names = person.GetNamedArray("names");
-                                    if (names.Count > 0)
+                                    var primaryName = person.GetNamedArray("names")[0].GetObject();
+                                    if (primaryName.ContainsKey("givenName")) gc.FirstName = primaryName.GetNamedString("givenName");
+                                    if (primaryName.ContainsKey("familyName")) gc.LastName = primaryName.GetNamedString("familyName");
+                                }
+
+                                if (person.ContainsKey("biographies"))
+                                {
+                                    var bios = person.GetNamedArray("biographies");
+                                    if (bios.Count > 0 && bios[0].GetObject().ContainsKey("value"))
+                                        gc.Notes = bios[0].GetObject().GetNamedString("value");
+                                }
+
+                                if (person.ContainsKey("organizations"))
+                                {
+                                    foreach (var oItem in person.GetNamedArray("organizations"))
                                     {
-                                        var primaryName = names[0].GetObject();
-                                        if (primaryName.ContainsKey("givenName")) parsedContact.FirstName = primaryName.GetNamedString("givenName");
-                                        if (primaryName.ContainsKey("familyName")) parsedContact.LastName = primaryName.GetNamedString("familyName");
+                                        var obj = oItem.GetObject();
+                                        var org = new GOrg();
+                                        if (obj.ContainsKey("name")) org.Name = obj.GetNamedString("name");
+                                        if (obj.ContainsKey("title")) org.Title = obj.GetNamedString("title");
+                                        if (!string.IsNullOrEmpty(org.Name) || !string.IsNullOrEmpty(org.Title)) gc.Organizations.Add(org);
                                     }
                                 }
 
                                 if (person.ContainsKey("phoneNumbers"))
                                 {
                                     foreach (var pItem in person.GetNamedArray("phoneNumbers"))
-                                        if (pItem.GetObject().ContainsKey("value")) parsedContact.Phones.Add(pItem.GetObject().GetNamedString("value"));
+                                    {
+                                        var obj = pItem.GetObject();
+                                        if (obj.ContainsKey("value")) gc.Phones.Add(new GPhone
+                                        {
+                                            Number = obj.GetNamedString("value"),
+                                            Type = obj.ContainsKey("type") ? obj.GetNamedString("type").ToLower() : "other"
+                                        });
+                                    }
                                 }
 
                                 if (person.ContainsKey("emailAddresses"))
                                 {
                                     foreach (var eItem in person.GetNamedArray("emailAddresses"))
-                                        if (eItem.GetObject().ContainsKey("value")) parsedContact.Emails.Add(eItem.GetObject().GetNamedString("value"));
+                                    {
+                                        var obj = eItem.GetObject();
+                                        if (obj.ContainsKey("value")) gc.Emails.Add(new GEmail
+                                        {
+                                            Address = obj.GetNamedString("value"),
+                                            Type = obj.ContainsKey("type") ? obj.GetNamedString("type").ToLower() : "other"
+                                        });
+                                    }
                                 }
 
                                 if (person.ContainsKey("addresses"))
                                 {
                                     foreach (var aItem in person.GetNamedArray("addresses"))
                                     {
-                                        var addrObj = aItem.GetObject();
-                                        if (addrObj.ContainsKey("formattedValue")) parsedContact.Addresses.Add(addrObj.GetNamedString("formattedValue"));
-                                        else if (addrObj.ContainsKey("streetAddress")) parsedContact.Addresses.Add(addrObj.GetNamedString("streetAddress"));
+                                        var obj = aItem.GetObject();
+                                        var addr = new GAddress();
+                                        if (obj.ContainsKey("type")) addr.Type = obj.GetNamedString("type").ToLower();
+                                        if (obj.ContainsKey("streetAddress")) addr.Street = obj.GetNamedString("streetAddress");
+                                        if (obj.ContainsKey("city")) addr.City = obj.GetNamedString("city");
+                                        if (obj.ContainsKey("region")) addr.Region = obj.GetNamedString("region");
+                                        if (obj.ContainsKey("postalCode")) addr.PostalCode = obj.GetNamedString("postalCode");
+                                        if (obj.ContainsKey("country")) addr.Country = obj.GetNamedString("country");
+
+                                        if (!string.IsNullOrEmpty(addr.Street) || !string.IsNullOrEmpty(addr.City)) gc.Addresses.Add(addr);
                                     }
                                 }
 
                                 if (person.ContainsKey("urls"))
                                 {
                                     foreach (var uItem in person.GetNamedArray("urls"))
-                                        if (uItem.GetObject().ContainsKey("value")) parsedContact.Urls.Add(uItem.GetObject().GetNamedString("value"));
+                                    {
+                                        var obj = uItem.GetObject();
+                                        if (obj.ContainsKey("value")) gc.Urls.Add(new GUrl
+                                        {
+                                            Value = obj.GetNamedString("value"),
+                                            Type = obj.ContainsKey("type") ? obj.GetNamedString("type").ToLower() : "other"
+                                        });
+                                    }
                                 }
 
                                 if (person.ContainsKey("birthdays"))
@@ -513,10 +651,10 @@ namespace SyncComponent
                                     if (bdays.Count > 0 && bdays[0].GetObject().ContainsKey("date"))
                                     {
                                         var dateObj = bdays[0].GetObject().GetNamedObject("date");
-                                        parsedContact.Birthday = new GDate();
-                                        if (dateObj.ContainsKey("year")) parsedContact.Birthday.Year = (int)dateObj.GetNamedNumber("year");
-                                        if (dateObj.ContainsKey("month")) parsedContact.Birthday.Month = (uint)dateObj.GetNamedNumber("month");
-                                        if (dateObj.ContainsKey("day")) parsedContact.Birthday.Day = (uint)dateObj.GetNamedNumber("day");
+                                        gc.Birthday = new GDate();
+                                        if (dateObj.ContainsKey("year")) gc.Birthday.Year = (int)dateObj.GetNamedNumber("year");
+                                        if (dateObj.ContainsKey("month")) gc.Birthday.Month = (uint)dateObj.GetNamedNumber("month");
+                                        if (dateObj.ContainsKey("day")) gc.Birthday.Day = (uint)dateObj.GetNamedNumber("day");
                                     }
                                 }
 
@@ -524,12 +662,12 @@ namespace SyncComponent
                                 {
                                     var photos = person.GetNamedArray("photos");
                                     if (photos.Count > 0 && photos[0].GetObject().ContainsKey("url"))
-                                        parsedContact.PhotoUrl = photos[0].GetObject().GetNamedString("url");
+                                        gc.PhotoUrl = photos[0].GetObject().GetNamedString("url");
                                 }
 
-                                if (!string.IsNullOrEmpty(parsedContact.FirstName) || parsedContact.Phones.Count > 0 || parsedContact.Emails.Count > 0)
+                                if (!string.IsNullOrEmpty(gc.FirstName) || gc.Phones.Count > 0 || gc.Emails.Count > 0)
                                 {
-                                    contactsList.Add(parsedContact);
+                                    contactsList.Add(gc);
                                 }
                             }
                         }
@@ -581,14 +719,14 @@ namespace SyncComponent
             foreach (var kvp in etags) etagsJson.SetNamedValue(kvp.Key, JsonValue.CreateStringValue(kvp.Value));
             foreach (var kvp in hashes) hashesJson.SetNamedValue(kvp.Key, JsonValue.CreateStringValue(kvp.Value));
             root.SetNamedValue("etags", etagsJson); root.SetNamedValue("hashes", hashesJson);
-            var file = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync("sync_state.json", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            var file = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync("sync_state_v2.json", Windows.Storage.CreationCollisionOption.ReplaceExisting);
             await Windows.Storage.FileIO.WriteTextAsync(file, root.Stringify());
         }
 
         private async Task<SyncState> LoadSyncStateAsync()
         {
             var state = new SyncState();
-            var item = await Windows.Storage.ApplicationData.Current.LocalFolder.TryGetItemAsync("sync_state.json");
+            var item = await Windows.Storage.ApplicationData.Current.LocalFolder.TryGetItemAsync("sync_state_v2.json");
             if (item != null)
             {
 
@@ -641,25 +779,39 @@ namespace SyncComponent
         }
 }
 
-// Расширенный вспомогательный класс для новых полей
-internal class GoogleContact
-{
-    public string Id { get; set; } = "";
-    public string ETag { get; set; } = "";
-    public string FirstName { get; set; } = "";
-    public string LastName { get; set; } = "";
-    public List<string> Phones { get; set; } = new List<string>();
-    public List<string> Emails { get; set; } = new List<string>();
-    public List<string> Addresses { get; set; } = new List<string>();
-    public List<string> Urls { get; set; } = new List<string>();
-    public GDate Birthday { get; set; } = null;
-    public string PhotoUrl { get; set; } = "";
-}
+    // Расширенный вспомогательный класс для новых полей
+    internal class GoogleContact
+    {
+        public string Id { get; set; } = "";
+        public string ETag { get; set; } = "";
+        public string FirstName { get; set; } = "";
+        public string LastName { get; set; } = "";
+        public string Notes { get; set; } = ""; // Биографии/Заметки
 
-internal class GDate
-{
-    public int? Year { get; set; }
-    public uint Month { get; set; }
-    public uint Day { get; set; }
-}
+        public List<GPhone> Phones { get; set; } = new List<GPhone>();
+        public List<GEmail> Emails { get; set; } = new List<GEmail>();
+        public List<GAddress> Addresses { get; set; } = new List<GAddress>();
+        public List<GUrl> Urls { get; set; } = new List<GUrl>();
+        public List<GOrg> Organizations { get; set; } = new List<GOrg>();
+
+        public GDate Birthday { get; set; } = null;
+        public string PhotoUrl { get; set; } = "";
+    }
+
+    internal class GPhone { public string Number { get; set; } = ""; public string Type { get; set; } = "other"; }
+    internal class GEmail { public string Address { get; set; } = ""; public string Type { get; set; } = "other"; }
+    internal class GUrl { public string Value { get; set; } = ""; public string Type { get; set; } = "other"; }
+    internal class GOrg { public string Name { get; set; } = ""; public string Title { get; set; } = ""; }
+
+    internal class GAddress
+    {
+        public string Street { get; set; } = "";
+        public string City { get; set; } = "";
+        public string Region { get; set; } = "";
+        public string PostalCode { get; set; } = "";
+        public string Country { get; set; } = "";
+        public string Type { get; set; } = "home";
+    }
+
+    internal class GDate { public int? Year { get; set; } public uint Month { get; set; } public uint Day { get; set; } }
 }
